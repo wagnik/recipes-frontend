@@ -1,0 +1,22 @@
+.button-wrapper {
+	background-color: #77878B;
+	color: #fff;
+	font-family: Trebuchet MS;
+	font-size: 18px;
+	font-weight: 800;
+	font-style: normal;
+	text-decoration: none;
+	padding: 14px 15px;
+	border: 0px solid #000;
+	border-radius: 6px;
+  display: inline-block;
+	margin-left: 20px;
+}
+
+.button-wrapper:hover{
+	background-color: #CC8B86;
+}
+
+.button-wrapper:active{
+	transform: scale(0.95);
+}
