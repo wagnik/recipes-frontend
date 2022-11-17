@@ -1,0 +1,58 @@
+.content-wrapper {
+    display: inline-block;
+    margin: 0 200px;
+
+}
+
+
+.content-wrapper p{
+    font-family: 'Montserrat', sans-serif;
+	color: #000;
+	font-size: 50px;
+	font-weight: 800;
+	font-style: normal;
+	text-decoration: none;
+	text-align: left;
+    margin: 50px 0 30px;
+}
+
+.content-wrapper span {
+    float: left;
+    font-size: 10px;
+    text-align: justify;
+    padding: 0 10px 0 0;
+}
+
+.content-wrapper img {
+    width: 400px;
+    height: 400px;
+    float: right;
+}
+
+.opis {
+    display: block;
+    float: left;
+    width: 55%;
+}
+
+.opis .button {
+    float: left;
+    margin: 30px 20px 0 0;
+}
+
+.opis .button .logowanie {
+    background-color: #f5f3f4;
+}
+
+
+@media (max-width: 1024px) {
+	.content-wrapper {
+	  margin: 0 100px;
+	} 
+
+    .content-wrapper img {
+        width: 360px;
+        height: 360px;
+        float: right;
+    }
+  }

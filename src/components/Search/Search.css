@@ -1,16 +1,21 @@
 .search-wrapper {
     box-sizing: border-box;
-    margin: 20px;
+    margin: 20px 200px;
 }
+
+@media (max-width: 1024px) {
+	.search-wrapper {
+	  margin: 20px 100px;
+	} 
+  }
 
 .search-wrapper input {
     box-sizing: border-box;
     width: 100%;
-    background-color: #77878B;
-	color: #fff;
+    background-color: #fff;
+	color: #000;
 	font-family: Trebuchet MS;
 	font-size: 18px;
-	font-weight: 800;
 	font-style: normal;
 	text-decoration: none;
 	padding: 14px 15px;
@@ -20,15 +25,11 @@
 }
 
 .search-wrapper input:focus {
-    background-color: #CC8B86;
 	border: 0px;
+	outline: none;
 }
 
 
 .search-wrapper input::placeholder {
-	color: #dee2e3;
-}
-
-.search-wrapper input:active::placeholder {
-	color: #fff;
+	color: #adb5bd;
 }

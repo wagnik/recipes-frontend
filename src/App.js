@@ -1,17 +1,16 @@
 import { Navigation } from './components/Navigation';
 import './App.css';
 import { Search } from './components/Search';
+import { Content } from './components/ContentWrapper';
+import { Footer } from './components/Footer';
 
 function App() {
   return (
     <div className="App">
       <Navigation/>
       <Search />
-      <header className="App-header">
-        <p>
-          Recipe
-        </p>
-      </header>
+      <Content />
+      <Footer />
     </div>
   );
 }
