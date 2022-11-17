@@ -1,12 +1,11 @@
-import './ColorButton.css';
+import styles from './ColorButton.module.scss';
+import clsx from 'clsx';
 
 function ColorButton(props) {
   return (
-    props.color ? 
-    <button className="color-button-wrapper-2">
-        {props.title}
-    </button> :
-    <button className="color-button-wrapper">
+    <button
+      className={clsx(styles.wrapper, props.noColor && styles.noBackground)}
+    >
       {props.title}
     </button>
   );

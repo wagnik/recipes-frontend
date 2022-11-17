@@ -1,0 +1,53 @@
+@import './../../styles/colors.scss';
+
+.wrapper {
+  display: inline-block;
+  margin: 0 200px;
+}
+
+p {
+  font-family: 'Montserrat', sans-serif;
+  color: $black;
+  font-size: 50px;
+  font-weight: 800;
+  font-style: normal;
+  text-decoration: none;
+  text-align: left;
+  margin: 50px 0 30px;
+}
+
+span {
+  float: left;
+  font-size: 10px;
+  text-align: justify;
+  padding: 0 10px 0 0;
+}
+
+img {
+  width: 400px;
+  height: 400px;
+  float: right;
+}
+
+.mainContent {
+  display: block;
+  float: left;
+  width: 55%;
+}
+
+.buttons {
+  float: left;
+  margin: 30px 20px 0 0;
+}
+
+@media (max-width: 1024px) {
+  .wrapper {
+    margin: 0 100px;
+  }
+
+  img {
+    width: 360px;
+    height: 360px;
+    float: right;
+  }
+}

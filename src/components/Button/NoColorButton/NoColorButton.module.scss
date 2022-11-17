@@ -1,0 +1,23 @@
+@import './../../../styles/colors.scss';
+
+.wrapper {
+  font-family: 'Caveat', cursive;
+  color: $black;
+  background-color: $background;
+  font-size: 22px;
+  font-style: normal;
+  text-decoration: none;
+  padding: 11px 15px;
+  border: 0px solid $black;
+  display: inline-block;
+  margin-right: 10px;
+}
+
+.wrapper:hover {
+  background-color: $light-gray;
+  border-radius: 6px;
+}
+
+.wrapper:active {
+  transform: scale(0.95);
+}

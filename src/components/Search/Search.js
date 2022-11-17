@@ -1,9 +1,9 @@
-import './Search.css';
+import styles from './Search.module.scss';
 
 function Search() {
   return (
-    <div className='search-wrapper'>
-        <input placeholder='Wyszukaj przepis'/>
+    <div className={styles.wrapper}>
+      <input className={styles.searchInput} placeholder='Wyszukaj przepis' />
     </div>
   );
 }

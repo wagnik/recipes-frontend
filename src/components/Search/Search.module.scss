@@ -1,0 +1,36 @@
+@import './../../styles/colors.scss';
+
+.wrapper {
+  box-sizing: border-box;
+  margin: 20px 200px;
+}
+
+@media (max-width: 1024px) {
+  .wrapper {
+    margin: 20px 100px;
+  }
+}
+
+.searchInput {
+  box-sizing: border-box;
+  width: 100%;
+  background-color: $white;
+  color: $black;
+  font-family: Trebuchet MS;
+  font-size: 18px;
+  font-style: normal;
+  text-decoration: none;
+  padding: 14px 15px;
+  border: 0px;
+  border-radius: 6px;
+  display: inline-block;
+}
+
+.wrapper input:focus {
+  border: 0px;
+  outline: none;
+}
+
+.wrapper input::placeholder {
+  color: $gray;
+}

@@ -1,20 +1,20 @@
-import { Button } from '../Button';
 import { ColorButton } from '../Button/ColorButton';
-import './Navigation.css';
+import { NoColorButton } from '../Button/NoColorButton';
+import styles from './Navigation.module.scss';
 import logo from './../../logo.svg';
 
 function Navigation() {
   return (
-    <div className="navigation-wrapper">
-        <div className='logo'>
-          <img src={logo} alt='logo'/>
-          <div>Domowe przepisy</div>
-        </div>
-        <div className='buttons'>
-					<Button title={'Logowanie'}/>
-          <Button title={'Rejestracja'}/>
-					<ColorButton title={'Dodaj przepis'}/>
-        </div>
+    <div className={styles.wrapper}>
+      <div className={styles.logo}>
+        <img src={logo} className={styles.logoImage} alt='logo' />
+        <div className={styles.logoTitle}>Domowe przepisy</div>
+      </div>
+      <div className={styles.buttons}>
+        <NoColorButton title={'Logowanie'} />
+        <NoColorButton title={'Rejestracja'} />
+        <ColorButton title={'Dodaj przepis'} />
+      </div>
     </div>
   );
 }

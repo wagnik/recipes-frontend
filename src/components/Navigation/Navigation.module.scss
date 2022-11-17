@@ -1,0 +1,33 @@
+.wrapper {
+  margin: 0 200px;
+  min-height: 10vh;
+}
+
+@media (max-width: 1024px) {
+  .wrapper {
+    margin: 0 100px;
+  }
+}
+
+.logo {
+  display: inline-block;
+}
+
+.logoImage {
+  float: left;
+  margin: 10px 0;
+  width: 70px;
+  height: 70px;
+}
+
+.logoTitle {
+  font-family: 'Caveat', cursive;
+  font-size: 30px;
+  float: left;
+  margin: 30px 10px 0;
+}
+
+.buttons {
+  float: right;
+  margin: 20px 0 0 20px;
+}
