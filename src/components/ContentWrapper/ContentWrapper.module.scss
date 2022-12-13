@@ -25,26 +25,23 @@
 }
 
 .bg {
-  width: 110%;
-  margin: 0 -25px;
   height: fit-content;
   mask-image: linear-gradient($white, transparent);
+  box-sizing: border-box;
+  width: 100%;
+  float: right;
+  border-radius: 5px;
 }
 
 .description {
   font-size: 14px;
   text-align: justify;
   margin-bottom: 50px;
-}
-
-img {
-  width: 400px;
-  height: 400px;
-  float: right;
+  height: 200px;
+  overflow: auto;
 }
 
 .mainContent {
-  display: inline-block;
   margin-bottom: 200px;
 }
 
@@ -64,7 +61,8 @@ img {
   padding: 0 20px;
   background-color: $white;
   border-radius: 0px 20px 0px 0px;
-  box-shadow: rgba(50, 50, 105, 0.15) 0px 2px 5px 0px, rgba(0, 0, 0, 0.05) 0px 1px 1px 0px;
+  box-shadow: rgba(50, 50, 105, 0.15) 0px 2px 5px 0px,
+    rgba(0, 0, 0, 0.05) 0px 1px 1px 0px;
 
   @media only screen and (max-width: 1024px) {
     width: 55%;
@@ -75,10 +73,27 @@ img {
   .wrapper {
     margin: 0 100px;
   }
+}
 
-  img {
-    width: 360px;
-    height: 360px;
-    float: right;
-  }
+.recipeWrapper {
+  border-radius: 5px;
+  position: relative;
+}
+
+.test {
+  display: grid;
+  column-gap: 10px;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.remove {
+  position: absolute;
+  z-index: 1;
+  right: 0;
+}
+
+.edit {
+  position: absolute;
+  z-index: 1;
+  left: 0;
 }
