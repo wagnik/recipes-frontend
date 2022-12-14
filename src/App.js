@@ -14,7 +14,7 @@ function App() {
       .then((data) => setData(data));
   }, [data2]);
 
-  const addRecipe = async (title, body) => {
+  const addRecipe = async (title, body, img, tags) => {
     await fetch('http://localhost:3001/api/recipes', {
       method: 'POST',
       headers: {
@@ -23,6 +23,8 @@ function App() {
       body: JSON.stringify({
         title,
         body,
+        img,
+        tags,
       }),
     }).then((response) => response.json());
   };

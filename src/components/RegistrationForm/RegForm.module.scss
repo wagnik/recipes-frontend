@@ -1,11 +1,15 @@
 @import './../../styles/colors.scss';
 
+.wrapper {
+  display: block;
+}
+
 .button {
   display: inline-block;
   margin: 20px;
 }
 
-.war {
+.register {
   text-align: center;
   font-size: 30px;
   color: $dark-red;

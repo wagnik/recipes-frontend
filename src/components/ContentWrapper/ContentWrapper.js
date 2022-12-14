@@ -20,7 +20,7 @@ function Content(props) {
     });
   };
 
-  const editRecipe = async (id, title, body) => {
+  const editRecipe = async (id, title, body, img, tags) => {
     await fetch(`http://localhost:3001/api/recipes/${id}`, {
       method: 'PUT',
       headers: {
@@ -29,6 +29,8 @@ function Content(props) {
       body: JSON.stringify({
         title,
         body,
+        img,
+        tags,
       }),
     }).then((response) => response.json());
   };
@@ -69,12 +71,13 @@ function Content(props) {
                       />
                     </div>
                     <img
-                      src={pancakesBG}
+                      src={recipe.img}
                       alt={recipe.title}
                       className={styles.bg}
                     ></img>
                     <div className={styles.recipeTitle}>{recipe.title}</div>
                     <div className={styles.description}>{recipe.body}</div>
+                    <div>{recipe.tags}</div>
                     {isVisibleFormID === recipe._id && (
                       <Form
                         id={recipe._id}
