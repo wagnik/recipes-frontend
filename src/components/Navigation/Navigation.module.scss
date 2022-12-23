@@ -1,3 +1,5 @@
+@import '../../styles/colors.scss';
+
 .wrapper {
   margin: 0 200px;
   min-height: 10vh;
@@ -30,4 +32,10 @@
 .buttons {
   float: right;
   margin: 20px 0 0 20px;
+}
+
+.login {
+  text-align: center;
+  font-size: 30px;
+  color: $dark-red;
 }

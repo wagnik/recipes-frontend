@@ -2,6 +2,7 @@
 
 .wrapper {
   margin: 0 200px;
+  position: relative;
 }
 
 .title {
@@ -25,23 +26,18 @@
 }
 
 .bg {
-  display: block;
-  margin: 0 auto;
-  height: 150px;
-  max-width: 100%;
-  align-items: center;
-  mask-image: linear-gradient($white, transparent);
-  box-sizing: border-box;
+  margin: 50px 0;
+  width: 200px;
+  float: left;
   border-radius: 5px;
 }
 
 .description {
+  padding: 10px;
   font-size: 14px;
   text-align: justify;
-  margin-bottom: 50px;
+  margin-bottom: 20px;
   height: 200px;
-  overflow: hidden;
-  padding: 10px;
 }
 
 .mainContent {
@@ -64,8 +60,6 @@
   padding: 0 20px;
   background-color: $white;
   border-radius: 0px 20px 0px 0px;
-  box-shadow: rgba(50, 50, 105, 0.15) 0px 2px 5px 0px,
-    rgba(0, 0, 0, 0.05) 0px 1px 1px 0px;
 
   @media only screen and (max-width: 1024px) {
     width: 55%;
@@ -84,16 +78,10 @@
   background-color: $white;
   box-shadow: rgba(0, 0, 0, 0.15) 2.4px 2.4px 3.2px;
 
-  &:hover {
-    // background-color: $light-gray;
-    transform: translateY(-5px);
+  a {
+    display: block;
+    margin: 0;
   }
-}
-
-.test {
-  display: grid;
-  column-gap: 10px;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
 }
 
 .remove {
@@ -112,4 +100,40 @@ a {
   text-decoration: none;
 
   color: inherit;
+}
+
+.remove {
+  position: absolute;
+  z-index: 1;
+  right: 0;
+}
+
+.edit {
+  margin: 0;
+}
+
+.backIcon {
+  position: absolute;
+  margin: 0 10px;
+  float: left;
+  width: 40px;
+  height: 40px;
+  transform: rotateX(180deg);
+  cursor: pointer;
+}
+
+.editIcon {
+  margin: 12px 10px;
+  float: right;
+  width: 25px;
+  height: 25px;
+  cursor: pointer;
+}
+
+.removeIcon {
+  margin: 10px;
+  float: right;
+  width: 25px;
+  height: 25px;
+  cursor: pointer;
 }

@@ -31,3 +31,7 @@
 .noBackground:hover {
   background-color: $gray;
 }
+
+.login {
+  width: calc(100% - 60px);
+}
