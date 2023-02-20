@@ -1,6 +1,6 @@
-import styles from './NoColorButton.module.scss';
+import styles from './styles.module.scss';
 
-function NoColorButton(props) {
+function NavButton(props) {
   return (
     <button onClick={props.onClick && props.onClick} className={styles.wrapper}>
       {props.title}
@@ -8,4 +8,4 @@ function NoColorButton(props) {
   );
 }
 
-export default NoColorButton;
+export default NavButton;

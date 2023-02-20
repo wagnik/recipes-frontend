@@ -1,7 +1,7 @@
-import styles from './ColorButton.module.scss';
+import styles from './styles.module.scss';
 import clsx from 'clsx';
 
-function ColorButton(props) {
+function SaveButton(props) {
   return (
     <button
       onClick={props.onClick && props.onClick}
@@ -16,4 +16,4 @@ function ColorButton(props) {
   );
 }
 
-export default ColorButton;
+export default SaveButton;

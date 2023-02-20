@@ -1,16 +1,14 @@
 import React, { useState, useEffect, createContext } from 'react';
 import { Route, Routes } from 'react-router-dom';
-import { Content } from './components/ContentWrapper';
-import { Footer } from './components/Footer';
-import { Login } from './components/Forms/Login';
-import { Navigation } from './components/Navigation';
-import { Recipe } from './components/Recipe';
-import { RecipeForm } from './components/Forms/Recipe';
-import { Registration } from './components/Forms/Registration';
-import { Search } from './components/Search';
+import Content from './components/ContentWrapper';
+import Footer from './components/Footer';
+import Navigation from './components/Navigation';
+import Recipe from './components/Recipe';
+import Search from './components/Search';
+import { Login, Recipe as RecipeForm, Registration } from './components/Forms';
 import { fetchAllRecipes } from './services/recipeService';
 import { fetchAuthUser } from './services/userService';
-import { ADD_RECIPE, SAVE, SUBMIT_LOGIN, SUBMIT_REGISTER } from './constants';
+import { PATH, TRANSLATION } from './constants';
 import styles from './App.module.scss';
 
 export const UserContext = createContext({});
@@ -55,7 +53,7 @@ function App() {
         )}
         <Routes>
           <Route
-            path='/'
+            path={PATH.MAIN}
             element={
               <>
                 <Search />
@@ -65,31 +63,31 @@ function App() {
             }
           ></Route>
           <Route
-            path='/add-recipe'
+            path={PATH.ADD_RECIPE}
             element={
               <RecipeForm
                 setVisibleNavigation={setVisibleNavigation}
                 setRefreshKey={setRefreshKey}
-                buttonName={ADD_RECIPE}
+                buttonName={TRANSLATION.ADD_RECIPE}
               />
             }
           ></Route>
           {!userSession.email && (
             <>
               <Route
-                path='/register'
+                path={PATH.REGISTRATION}
                 element={
                   <Registration
-                    buttonName={SUBMIT_REGISTER}
+                    buttonName={TRANSLATION.SUBMIT_REGISTER}
                     setVisibleNavigation={setVisibleNavigation}
                   />
                 }
               ></Route>
               <Route
-                path='/login'
+                path={PATH.LOGIN}
                 element={
                   <Login
-                    buttonName={SUBMIT_LOGIN}
+                    buttonName={TRANSLATION.SUBMIT_LOGIN}
                     setUserSession={setUserSession}
                     setRefreshAuth={setRefreshAuth}
                     setVisibleNavigation={setVisibleNavigation}
@@ -99,13 +97,16 @@ function App() {
             </>
           )}
           <Route
-            path='/edit/:id'
+            path={`${PATH.EDIT}:id`}
             element={
-              <RecipeForm setRefreshKey={setRefreshKey} buttonName={SAVE} />
+              <RecipeForm
+                setRefreshKey={setRefreshKey}
+                buttonName={TRANSLATION.SAVE}
+              />
             }
           ></Route>
           <Route
-            path='/recipe/:id'
+            path={`${PATH.RECIPE}:id`}
             element={
               <>
                 <Search />

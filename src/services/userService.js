@@ -39,10 +39,14 @@ export const loginUser = async (email, password) => {
     }),
   };
 
-  const result = await fetch(`${apiUrl}/login`, body).then(
-    async (response) => await response.json()
-  );
-
+  const response = await fetch(`${apiUrl}/login`, body);
+  console.log('ttttt', response);
+  if (!response.ok) {
+    throw new Error(`Error! status: ${response.status}`);
+  }
+  console.log('222');
+  const result = await response.json();
+  console.log(result, 'dada');
   return result;
 };
 
@@ -59,9 +63,13 @@ export const registerUser = async (name, email, password) => {
     }),
   };
 
-  const response = await fetch(`${apiUrl}/register`, body).then((res) =>
-    res.json()
-  );
+  const response = await fetch(`${apiUrl}/register`, body);
 
-  return response;
+  if (!response.ok) {
+    throw new Error(`Error! status: ${response.status}`);
+  }
+
+  const result = await response.json();
+
+  return result;
 };
