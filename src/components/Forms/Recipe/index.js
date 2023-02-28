@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import clsx from 'clsx';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import FileBase64 from 'react-file-base64';
 import { SaveButton } from '../../Buttons';
 import { addRecipe, editRecipe } from '../../../services/recipeService';
 import { PATH, TRANSLATION } from '../../../constants';
 import config from '../../../config.json';
 import logo from './../../../logo.svg';
-import backIcon from '../../../images/right-arrow.png';
+import backIcon from '../../../statics/images/right-arrow.png';
+import cake from '../../../statics/images/cake.png';
 import styles from './styles.module.scss';
 
 function Recipe(props) {
@@ -18,16 +20,16 @@ function Recipe(props) {
     title: '',
     description: '',
     image: '',
-    tags: [],
+    type: [],
   });
   const [warning, setWarning] = useState(false);
 
-  const { title, description, image, tags } = values;
-
+  const { title, description, image, type } = values;
+  console.log(image);
   const handleChange = (fieldName) => (event, base64) => {
     const currentValue = event.target.value;
 
-    if (fieldName === 'tags') {
+    if (fieldName === 'type') {
       setValues({
         ...values,
         [fieldName]: currentValue === '' ? [] : currentValue.split(','),
@@ -43,7 +45,7 @@ function Recipe(props) {
 
   const handleClick = async () => {
     if (id) {
-      await editRecipe(id, title, description, image.base64, tags).then(() =>
+      await editRecipe(id, title, description, image.base64, type).then(() =>
         props.setRefreshKey((oldKey) => oldKey + 1)
       );
       navigate(PATH.MAIN);
@@ -54,68 +56,70 @@ function Recipe(props) {
       return;
     }
 
-    await addRecipe(title, description, image.base64, tags).then(() =>
+    await addRecipe(title, description, image.base64, type).then(() =>
       props.setRefreshKey((oldKey) => oldKey + 1)
     );
-    props.setVisibleNavigation(true);
     navigate(PATH.MAIN);
   };
 
   return (
-    <div>
-      <div className={styles.wrapper}>
-        <img
-          className={styles.backIcon}
-          onClick={() => {
-            navigate(-1);
-            props.setRefreshKey((oldKey) => oldKey + 1);
-            props.setVisibleNavigation(true);
-          }}
-          src={backIcon}
-          alt={TRANSLATION.RETURN}
-          title={TRANSLATION.RETURN_PREV_PAGE}
-        />
-        <div className={styles.logoInput}>
-          <div className={styles.logo}>
-            <img
-              src={logo}
-              className={styles.logoImage}
-              alt={TRANSLATION.LOGO}
-            />
-            <div className={styles.logoTitle}>{appTitle}</div>
-          </div>
+    <div className={styles.wrapper}>
+      <div className={styles.form}>
+        <Link to={PATH.MAIN} className={styles.link}>
+          {'< wróć na stronę główną'}
+        </Link>
+        <div className={styles.heading}>Dodaj przepis</div>
+        <div className={styles.paragraph}>
+          Podaj wszystkie potrzebne składniki, instrukcję krok po kroku oraz
+          wrzuć zdjęcia, jeżeli takie posiadasz. Na pewno zachęci to innych do
+          wypróbowania Twoich przepisów
         </div>
         <div className={styles.inputs}>
           <div>
-            <p>TYTUŁ</p>
-            <input value={title} onChange={handleChange('title')} />
-          </div>
-          <div>
-            <p>OPIS</p>
+            <h5>Tytuł</h5>
             <input
-              value={description}
-              onChange={handleChange('descritption')}
+              className={styles.test}
+              value={title}
+              onChange={handleChange('title')}
             />
           </div>
           <div>
-            <div className={styles.imageInput}>
-              <FileBase64 multiple={false} onDone={handleChange('image')} />
-            </div>
+            <h5>Opis</h5>
+            <textarea
+              className={styles.test}
+              value={description}
+              onChange={handleChange('description')}
+            />
           </div>
           <div>
-            <p>TAGI</p>
-            <input value={tags} onChange={handleChange('tags')} />
+            <h5>Zdjęcie</h5>
+            <div className={styles.imageInput}>
+              <FileBase64
+                multiple={false}
+                onDone={(base64) => setValues({ ...values, image: base64 })}
+              />
+            </div>
+          </div>
+          <div className={styles.select}>
+            <h5>Rodzaj</h5>
+            <select onChange={handleChange('type')} value={type} multiple>
+              <option value='Śniadanie'>Śniadanie</option>
+              <option value='Obiad'>Obiad</option>
+              <option value='Deser'>Deser</option>
+            </select>
           </div>
         </div>
         <div className={styles.button}>
           <SaveButton
             title={props.buttonName}
-            login={true}
+            form={true}
             onClick={handleClick}
           />
         </div>
       </div>
-      {warning && <div className={styles.war}>Brakujące pola!</div>}
+      <div className={styles.bg}>
+        <img className={styles.image} src={cake} alt={'cake'} />
+      </div>
     </div>
   );
 }

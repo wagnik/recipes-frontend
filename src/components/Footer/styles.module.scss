@@ -1,10 +1,56 @@
 @import './../../styles/colors.scss';
 
 .wrapper {
-  width: 100%;
-  bottom: 20px;
+  margin: 50px 0;
+  display: block;
+  position: relative;
+  height: fit-content;
+  align-items: center;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 14px;
+}
+
+.logo {
+  position: absolute;
+  display: block;
+  top: -40px;
+  left: 200px;
+}
+
+@media (max-width: 1024px) {
+  .logo {
+    left: 100px;
+  }
+}
+
+.logo:hover {
+  color: $dark-red;
+}
+
+.logo:active {
+  transform: scale(0.95);
+}
+
+.logoImage {
+  float: left;
+  width: 30px;
+  height: 30px;
+}
+
+.logoTitle {
+  font-family: 'Quicksand', sans-serif;
+  font-size: 14px;
+  font-weight: 900;
+  float: left;
+  position: relative;
+  top: 7px;
+  left: 10px;
+}
+
+.copyright {
+  padding: 20px 100px 20px;
+  border-top: 1px solid rgba(39, 40, 42, 0.3);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 14px;
   text-align: center;
-  background-color: $light-gray;
-  padding: 20px;
-  font-size: 12px;
 }

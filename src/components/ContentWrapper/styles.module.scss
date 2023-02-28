@@ -1,115 +1,26 @@
 @import './../../styles/colors.scss';
 
 .wrapper {
-  margin: 0 200px;
-}
-
-.title {
-  position: relative;
-}
-
-.recipeTitle {
-  font-family: 'Caveat', cursive;
-  color: $light-red;
-  font-size: 50px;
-  font-style: normal;
-  text-decoration: none;
-  text-align: center;
-  margin: 0;
-}
-
-.ingredients {
-  font-size: 16px;
-  margin: 20px 0;
-  text-align: left;
-}
-
-.bg {
-  display: block;
-  margin: 0 auto;
-  height: 150px;
-  max-width: 100%;
-  align-items: center;
-  mask-image: linear-gradient($white, transparent);
   box-sizing: border-box;
-  border-radius: 5px;
-}
-
-.description {
-  font-size: 14px;
-  text-align: justify;
-  margin-bottom: 50px;
-  height: 200px;
+  flex-shrink: 0;
+  width: 100%;
+  height: min-content; /* 592px */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 100px 200px;
+  background-color: #ffffff;
   overflow: hidden;
-  padding: 10px;
-}
-
-.mainContent {
-  margin-bottom: 200px;
-}
-
-.categories {
-  width: 35%;
-  float: left;
-
-  @media only screen and (max-width: 1024px) {
-    width: 40%;
-  }
-}
-
-.mainInfo {
-  width: 60%;
-  overflow: hidden;
-  float: right;
-  padding: 0 20px;
-  background-color: $white;
-  border-radius: 0px 20px 0px 0px;
-  box-shadow: rgba(50, 50, 105, 0.15) 0px 2px 5px 0px,
-    rgba(0, 0, 0, 0.05) 0px 1px 1px 0px;
-
-  @media only screen and (max-width: 1024px) {
-    width: 55%;
-  }
+  position: relative;
+  align-content: center;
+  flex-wrap: nowrap;
+  gap: 30px;
+  border-radius: 0px 0px 0px 0px;
 }
 
 @media (max-width: 1024px) {
   .wrapper {
-    margin: 0 100px;
+    padding: 100px;
   }
-}
-
-.recipeWrapper {
-  border-radius: 5px;
-  position: relative;
-  background-color: $white;
-  box-shadow: rgba(0, 0, 0, 0.15) 2.4px 2.4px 3.2px;
-
-  &:hover {
-    // background-color: $light-gray;
-    transform: translateY(-5px);
-  }
-}
-
-.test {
-  display: grid;
-  column-gap: 10px;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-}
-
-.remove {
-  position: absolute;
-  z-index: 1;
-  right: 0;
-}
-
-.edit {
-  position: absolute;
-  z-index: 1;
-  left: 0;
-}
-
-a {
-  text-decoration: none;
-
-  color: inherit;
 }

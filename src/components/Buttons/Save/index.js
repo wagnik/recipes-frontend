@@ -8,7 +8,8 @@ function SaveButton(props) {
       className={clsx(
         styles.wrapper,
         props.noColor && styles.noBackground,
-        props.login && styles.login
+        props.displayInline && styles.inline,
+        props.form && styles.wrapperForm
       )}
     >
       {props.title}

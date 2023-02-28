@@ -14,19 +14,31 @@ export const fetchAllRecipes = async () => {
   return result;
 };
 
-export const fetchRecipe = async (id) => {
-  const response = await fetch(`${apiUrl}/${id}`);
+export const fetchTypeRecipes = async (type) => {
+  const response = await fetch(`${apiUrl}/${type}`);
 
   if (!response.ok) {
     throw new Error(`Error! status: ${response.status}`);
   }
 
   const result = await response.json();
-
+  console.log(result);
   return result;
 };
 
-export const addRecipe = async (title, description, img, tags) => {
+export const fetchRecipe = async (id) => {
+  const response = await fetch(`${config.apiEndpoint}/recipe/${id}`);
+  console.log(response);
+  if (!response.ok) {
+    throw new Error(`Error! status: ${response.status}`);
+  }
+
+  const result = await response.json();
+  console.log(result);
+  return result;
+};
+
+export const addRecipe = async (title, description, img, type) => {
   const body = {
     method: 'POST',
     headers: {
@@ -37,7 +49,7 @@ export const addRecipe = async (title, description, img, tags) => {
       title,
       description,
       img,
-      tags,
+      type,
     }),
   };
 
@@ -52,7 +64,7 @@ export const addRecipe = async (title, description, img, tags) => {
   return result;
 };
 
-export const editRecipe = async (id, title, description, img, tags) => {
+export const editRecipe = async (id, title, description, img, type) => {
   const body = {
     method: 'PUT',
     headers: {
@@ -62,7 +74,7 @@ export const editRecipe = async (id, title, description, img, tags) => {
       title,
       description,
       img,
-      tags,
+      type,
     }),
   };
 

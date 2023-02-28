@@ -1,32 +1,20 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { PATH } from '../../constants';
+import ThreeCards from '../Categories/ThreeCards';
+import TwoCards from '../Categories/TwoCards';
+import CategoryTitle from '../CategoryTitle';
 import styles from './styles.module.scss';
 
 function Content(props) {
   return (
     <div className={styles.wrapper}>
-      <div className={styles.mainContent}>
-        <div className={styles.test}>
-          {props && props.recipes && props.recipes.length > 0
-            ? props.recipes.map((recipe, index) => {
-                return (
-                  <Link key={index} to={`${PATH.RECIPE}${recipe._id}`}>
-                    <div className={styles.recipeWrapper}>
-                      <img
-                        src={recipe.img}
-                        alt={recipe.title}
-                        className={styles.bg}
-                      ></img>
-                      <div className={styles.recipeTitle}>{recipe.title}</div>
-                      <div>{recipe.tags}</div>
-                    </div>
-                  </Link>
-                );
-              })
-            : 'DODAJ PRZEPIS'}
-        </div>
-      </div>
+      <CategoryTitle title='Śniadania' type='Śniadanie'></CategoryTitle>
+      <TwoCards recipes={props.recipes} type='Śniadanie'></TwoCards>
+      <CategoryTitle title='Obiady' type='Obiad'></CategoryTitle>
+      <ThreeCards recipes={props.recipes} type='Obiad'></ThreeCards>
+      <CategoryTitle title='Desery' type='Deser'></CategoryTitle>
+      <TwoCards recipes={props.recipes} type='Deser'></TwoCards>
     </div>
   );
 }

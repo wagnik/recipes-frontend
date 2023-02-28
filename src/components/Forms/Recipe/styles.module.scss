@@ -1,40 +1,89 @@
 @import './../../../styles/colors.scss';
 
-.war {
-  text-align: center;
-  font-size: 30px;
-  color: $dark-red;
-}
-
 .wrapper {
-  margin: 50px auto;
+  width: auto;
+  height: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin: 0 100px;
+  box-sizing: border-box;
+  letter-spacing: -0.03em;
+  box-sizing: content-box;
+}
+
+.form {
+  padding: 2.5rem 0;
+  flex: 0 0 40%;
+  width: 40%;
+}
+
+.bg {
+  flex: 0 0 50%;
   width: 50%;
-  box-shadow: 8px 8px 24px 0px rgba(66, 68, 90, 1);
-  border-radius: 6px;
-  box-sizing: border-box;
 }
 
-.inputs {
-  padding: 50px 30px;
-}
-
-p {
-  margin: 0;
-}
-
-input {
+.image {
   width: 100%;
-  height: 30px;
-  box-sizing: border-box;
-  border: none;
-  border-radius: 5px;
+  height: 100%;
+  object-fit: none;
+  margin-bottom: -1rem;
+  background-color: lightgray;
+  max-width: 100%;
+}
+
+.link {
+  width: fit-content;
+  font-size: 18px;
+  color: black;
+  margin: 0;
+  letter-spacing: -0.03em;
+  line-height: 1.25;
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 700;
+}
+
+.heading {
+  font-family: 'DM Sans', sans-serif;
+  color: #27282a;
+  font-size: 32px;
+  font-weight: 700;
+  line-height: 1.25;
+  margin: 0 0 1rem;
+  letter-spacing: -0.04em;
+}
+
+.paragraph {
+  font-size: 1rem;
+  color: #27282ab3;
+  margin: 0 0 2rem;
+}
+
+.inputs,
+h5 {
+  color: inherit;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 1.25;
+  letter-spacing: -0.03em;
+  margin: 0 0 0.5rem;
+}
+
+.test {
+  max-width: -webkit-fill-available;
+  width: 100%;
+  padding: 0.825rem 1.1175rem;
+  font-size: 1.125rem;
+  line-height: 1.2;
+  border: 1px solid rgba(39, 40, 42, 0.3);
+  border-radius: 0.625rem;
+  margin-bottom: 2rem;
 }
 
 .button {
   text-align: center;
   padding-bottom: 30px;
-  // display: inline-block;
-  // margin: auto;
 }
 
 .login {
@@ -64,11 +113,6 @@ input {
   margin-bottom: 30px;
 }
 
-.imageInput {
-  mask-image: linear-gradient($white, transparent);
-  padding: 10px 0;
-}
-
 .backIcon {
   position: absolute;
   margin: 0 10px;
@@ -77,4 +121,35 @@ input {
   height: 40px;
   transform: rotateX(180deg);
   cursor: pointer;
+}
+
+.imageInput {
+  margin-bottom: 2rem;
+}
+
+.select {
+  position: relative;
+  display: inline-block;
+  margin-bottom: 2rem;
+  width: 100%;
+}
+
+.select select {
+  font-family: 'DM Sans', sans-serif;
+  display: inline-block;
+  width: 100%;
+  cursor: pointer;
+  padding: 0.825rem 1.1175rem;
+  outline: 0;
+  border: 0;
+  border-radius: 0.625rem;
+  background: #59595a32;
+  color: #000000;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+}
+
+.select select:hover {
+  background: #4848485c;
 }

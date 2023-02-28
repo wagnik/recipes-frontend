@@ -10,6 +10,7 @@ import { fetchAllRecipes } from './services/recipeService';
 import { fetchAuthUser } from './services/userService';
 import { PATH, TRANSLATION } from './constants';
 import styles from './App.module.scss';
+import AllRecipes from './components/AllRecipes';
 
 export const UserContext = createContext({});
 
@@ -17,7 +18,6 @@ function App() {
   const [recipes, setRecipes] = useState([]);
   const [refreshKey, setRefreshKey] = useState(0);
   const [userSession, setUserSession] = useState(true);
-  const [visibleNavigation, setVisibleNavigation] = useState(true);
   const [refreshAuth, setRefreshAuth] = useState(0);
 
   useEffect(() => {
@@ -43,20 +43,16 @@ function App() {
   return (
     <UserContext.Provider value={userSession}>
       <div className={styles.wrapper}>
-        {visibleNavigation && (
-          <Navigation
-            setRefreshKey={setRefreshKey}
-            setUserSession={setUserSession}
-            setRefreshAuth={setRefreshAuth}
-            setVisibleNavigation={setVisibleNavigation}
-          />
-        )}
         <Routes>
           <Route
             path={PATH.MAIN}
             element={
               <>
-                <Search />
+                <Navigation
+                  setRefreshKey={setRefreshKey}
+                  setUserSession={setUserSession}
+                  setRefreshAuth={setRefreshAuth}
+                />
                 <Content recipes={recipes} setRefreshKey={setRefreshKey} />
                 <Footer />
               </>
@@ -66,7 +62,6 @@ function App() {
             path={PATH.ADD_RECIPE}
             element={
               <RecipeForm
-                setVisibleNavigation={setVisibleNavigation}
                 setRefreshKey={setRefreshKey}
                 buttonName={TRANSLATION.ADD_RECIPE}
               />
@@ -77,10 +72,7 @@ function App() {
               <Route
                 path={PATH.REGISTRATION}
                 element={
-                  <Registration
-                    buttonName={TRANSLATION.SUBMIT_REGISTER}
-                    setVisibleNavigation={setVisibleNavigation}
-                  />
+                  <Registration buttonName={TRANSLATION.SUBMIT_REGISTER} />
                 }
               ></Route>
               <Route
@@ -90,7 +82,6 @@ function App() {
                     buttonName={TRANSLATION.SUBMIT_LOGIN}
                     setUserSession={setUserSession}
                     setRefreshAuth={setRefreshAuth}
-                    setVisibleNavigation={setVisibleNavigation}
                   />
                 }
               ></Route>
@@ -109,8 +100,44 @@ function App() {
             path={`${PATH.RECIPE}:id`}
             element={
               <>
-                <Search />
+                {/* <Search /> */}
+                <Navigation
+                  setRefreshKey={setRefreshKey}
+                  setUserSession={setUserSession}
+                  setRefreshAuth={setRefreshAuth}
+                />
                 <Recipe setRefreshKey={setRefreshKey} />
+                <Footer />
+              </>
+            }
+          ></Route>
+          <Route
+            path={PATH.ALL_RECIPES}
+            element={
+              <>
+                {/* <Search /> */}
+                <Navigation
+                  setRefreshKey={setRefreshKey}
+                  setUserSession={setUserSession}
+                  setRefreshAuth={setRefreshAuth}
+                />
+                <AllRecipes recipes={recipes} setRefreshKey={setRefreshKey} />
+                <Footer />
+              </>
+            }
+          ></Route>
+          <Route
+            path={`${PATH.TYPE_RECIPES}:type`}
+            element={
+              <>
+                {/* <Search /> */}
+                <Navigation
+                  setRefreshKey={setRefreshKey}
+                  setUserSession={setUserSession}
+                  setRefreshAuth={setRefreshAuth}
+                />
+                <AllRecipes recipes={recipes} setRefreshKey={setRefreshKey} />
+                <Footer />
               </>
             }
           ></Route>

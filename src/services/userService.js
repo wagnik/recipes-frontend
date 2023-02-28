@@ -18,10 +18,6 @@ export const logoutUser = async () => {
     method: 'DELETE',
   });
 
-  if (!response.ok) {
-    throw new Error(`Error! status: ${response.status}`);
-  }
-
   const result = await response.json();
   return result;
 };
@@ -40,13 +36,9 @@ export const loginUser = async (email, password) => {
   };
 
   const response = await fetch(`${apiUrl}/login`, body);
-  console.log('ttttt', response);
-  if (!response.ok) {
-    throw new Error(`Error! status: ${response.status}`);
-  }
-  console.log('222');
+
   const result = await response.json();
-  console.log(result, 'dada');
+
   return result;
 };
 
@@ -64,10 +56,6 @@ export const registerUser = async (name, email, password) => {
   };
 
   const response = await fetch(`${apiUrl}/register`, body);
-
-  if (!response.ok) {
-    throw new Error(`Error! status: ${response.status}`);
-  }
 
   const result = await response.json();
 

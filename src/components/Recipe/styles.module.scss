@@ -1,8 +1,37 @@
 @import './../../styles/colors.scss';
 
 .wrapper {
-  margin: 0 200px;
   position: relative;
+}
+
+.bg {
+  margin: 0;
+  width: 100%;
+  height: 300px;
+  object-fit: none;
+  background-color: rgba(151, 151, 151, 0.3);
+  margin-bottom: 5rem;
+}
+
+.link {
+  font-size: 18px;
+  color: black;
+  margin: 2rem;
+  letter-spacing: -0.04em;
+  line-height: 1.25;
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 700;
+}
+
+.content {
+  margin: 0 200px;
+  text-align: left;
+}
+
+@media (max-width: 1024px) {
+  .content {
+    margin: 0 100px;
+  }
 }
 
 .title {
@@ -11,12 +40,18 @@
 
 .recipeTitle {
   font-family: 'Caveat', cursive;
+  font-family: 'DM Sans', sans-serif;
   color: $light-red;
+  color: #27282a;
   font-size: 50px;
+  font-size: 38px;
+  font-weight: 700;
+  line-height: 1.1;
   font-style: normal;
   text-decoration: none;
-  text-align: center;
-  margin: 0;
+  margin: 1rem 0;
+  padding-bottom: 2rem;
+  border-bottom: 1px solid rgba(39, 40, 42, 0.3);
 }
 
 .ingredients {
@@ -25,19 +60,23 @@
   text-align: left;
 }
 
-.bg {
-  margin: 50px 0;
-  width: 200px;
-  float: left;
-  border-radius: 5px;
+.desc {
+  margin-top: 2rem;
+  padding: 10px;
+  font-size: 16px;
+  text-align: justify;
+  margin-bottom: 5rem;
+  height: 200px;
+}
+
+.descTitle {
+  font-size: 20px;
+  font-weight: 700;
+  margin-bottom: 1rem;
 }
 
 .description {
-  padding: 10px;
-  font-size: 14px;
-  text-align: justify;
-  margin-bottom: 20px;
-  height: 200px;
+  color: rgba(39, 40, 42);
 }
 
 .mainContent {
@@ -66,17 +105,10 @@
   }
 }
 
-@media (max-width: 1024px) {
-  .wrapper {
-    margin: 0 100px;
-  }
-}
-
 .recipeWrapper {
   border-radius: 5px;
   position: relative;
   background-color: $white;
-  box-shadow: rgba(0, 0, 0, 0.15) 2.4px 2.4px 3.2px;
 
   a {
     display: block;

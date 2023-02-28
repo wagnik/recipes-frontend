@@ -1,0 +1,42 @@
+@import './../../styles/colors.scss';
+
+.wrapper {
+  width: 100%;
+  display: inline-block;
+}
+
+.title {
+  display: inline-block;
+  font-weight: 600;
+  font-family: 'DM Sans', sans-serif;
+  text-transform: capitalize;
+  color: #27282a;
+  font-size: 44px;
+  letter-spacing: -0.05em;
+  text-align: left;
+}
+
+.button {
+  // float: right;
+  // display: inline-block;
+}
+
+.viewAll {
+  flex-shrink: 0;
+  width: auto; /* 113px */
+  height: auto; /* 20px */
+  white-space: pre;
+  overflow: visible;
+  position: relative;
+  font-weight: 500;
+  font-style: normal;
+  font-family: 'Inter', sans-serif;
+  color: #666666;
+  font-size: 12px;
+  letter-spacing: 0px;
+  line-height: 1.6;
+  text-align: left;
+
+  // vertical-align: middle;
+  float: right;
+}

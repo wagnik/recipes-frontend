@@ -1,0 +1,72 @@
+@import './../../../styles/colors.scss';
+
+.wrapper {
+  display: flex;
+  overflow: visible;
+  gap: 24px;
+  justify-content: center;
+  margin-bottom: 3.75rem;
+}
+
+.wrapperOneElement {
+  display: block;
+  width: 33%;
+  align-self: baseline;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  gap: 1rem;
+}
+
+.manyCard {
+  width: 100%;
+}
+
+.img {
+  object-fit: none;
+  height: 250px;
+  overflow: hidden;
+  background-color: lightgray;
+}
+
+.img:hover {
+  opacity: 0.75;
+}
+
+@media (max-width: 1024px) {
+  .img {
+    max-height: 180px;
+    object-fit: none;
+  }
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  text-align: center;
+}
+
+.title {
+  font-weight: 700;
+  font-family: 'DM Sans', sans-serif;
+  color: #27282a;
+  font-size: 20px;
+  letter-spacing: -0.03px;
+}
+
+.description {
+  height: 35px; /* 56px */
+  overflow: hidden;
+  color: #27282ab3;
+  font-size: 12px;
+  letter-spacing: -0.03px;
+}
+
+.title:hover,
+.description:hover {
+  opacity: 0.75;
+}

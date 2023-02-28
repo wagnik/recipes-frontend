@@ -1,13 +1,15 @@
 @import '../../styles/colors.scss';
 
 .wrapper {
-  margin: 0 200px;
-  min-height: 10vh;
+  padding: 1.5rem 200px;
+  background-color: white;
+  border-bottom: 1px solid rgba(39, 40, 42, 0.3);
+  box-sizing: border-box;
 }
 
 @media (max-width: 1024px) {
   .wrapper {
-    margin: 0 100px;
+    padding: 1.5rem 100px;
   }
 }
 
@@ -15,27 +17,61 @@
   display: inline-block;
 }
 
+.logo:hover {
+  color: $dark-red;
+}
+
+.logo:active {
+  transform: scale(0.95);
+}
+
 .logoImage {
   float: left;
-  margin: 10px 0;
-  width: 70px;
-  height: 70px;
+  width: 40px;
+  height: 40px;
 }
 
 .logoTitle {
-  font-family: 'Caveat', cursive;
-  font-size: 30px;
+  font-family: 'Quicksand', sans-serif;
+  font-size: 20px;
+  font-weight: 900;
   float: left;
-  margin: 30px 10px 0;
+  position: relative;
+  top: 7px;
+  left: 10px;
 }
 
 .buttons {
   float: right;
-  margin: 20px 0 0 20px;
 }
 
-.login {
+.message {
+  color: #27695d;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: #cceade;
   text-align: center;
-  font-size: 30px;
-  color: $dark-red;
+  padding: 2rem 0;
+  border: 1px solid #bae1d0;
+
+  .link {
+    color: inherit;
+    text-decoration: underline;
+  }
+
+  .link:hover {
+    color: rgba(140, 181, 164, 0.608);
+  }
+
+  .icon {
+    width: 14px;
+    height: 14px;
+    fill: rgb(255, 255, 255);
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    cursor: pointer;
+  }
 }
