@@ -42,7 +42,6 @@ function Login(props) {
   const handleClick = async () => {
     const result = await loginUser(email, password);
     // setSuccessMessage(!!t.userSession)
-    console.log(result.message);
     // props.setRefreshAuth((old) => old + 1);
     setMessage(result.message);
     if (SUCCESS_MESSAGE.hasOwnProperty(result.message)) {
@@ -65,7 +64,6 @@ function Login(props) {
           type={'email'}
           onChange={handleChange('email')}
         />
-        <div className={styles.s}></div>
       </div>
       <div className={styles.formInput}>
         <div className={styles.iconWrapper}>

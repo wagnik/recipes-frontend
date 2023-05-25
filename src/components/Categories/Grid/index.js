@@ -10,7 +10,9 @@ function Grid(props) {
     props.recipes &&
     props.type &&
     props.recipes.filter((r) => r.type.includes(props.type));
-  const recipes = props.type ? filteredRecipes : props && props.recipes;
+  const recipes = props.type
+    ? filteredRecipes.reverse()
+    : props && props.recipes.reverse();
 
   return (
     <div className={styles.wrapper}>

@@ -21,6 +21,10 @@
   gap: 1rem;
 }
 
+.card:hover {
+  opacity: 0.7;
+}
+
 .manyCard {
   width: 100%;
 }
@@ -28,18 +32,15 @@
 .img {
   object-fit: none;
   height: 250px;
+  max-width: 100%; //for svg
+  min-width: 35vw; //for png/jpg
   overflow: hidden;
   background-color: lightgray;
-}
-
-.img:hover {
-  opacity: 0.75;
 }
 
 @media (max-width: 1024px) {
   .img {
     max-height: 180px;
-    object-fit: none;
   }
 }
 
@@ -64,9 +65,5 @@
   color: #27282ab3;
   font-size: 12px;
   letter-spacing: -0.03px;
-}
-
-.title:hover,
-.description:hover {
-  opacity: 0.75;
+  word-break: break-word;
 }

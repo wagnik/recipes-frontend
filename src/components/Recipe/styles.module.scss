@@ -2,6 +2,7 @@
 
 .wrapper {
   position: relative;
+  height: 100%;
 }
 
 .bg {
@@ -34,8 +35,14 @@
   }
 }
 
+.menu {
+  position: relative;
+  width: 100%;
+}
+
 .title {
   position: relative;
+  width: fit-content;
 }
 
 .recipeTitle {
@@ -61,12 +68,12 @@
 }
 
 .desc {
-  margin-top: 2rem;
   padding: 10px;
   font-size: 16px;
   text-align: justify;
   margin-bottom: 5rem;
-  height: 200px;
+  min-height: 200px;
+  word-wrap: break-word;
 }
 
 .descTitle {
@@ -111,22 +118,21 @@
   background-color: $white;
 
   a {
-    display: block;
     margin: 0;
   }
 }
 
-.remove {
-  position: absolute;
-  z-index: 1;
-  right: 0;
-}
+// .remove {
+//   position: absolute;
+//   z-index: 1;
+//   right: 0;
+// }
 
-.edit {
-  position: absolute;
-  z-index: 1;
-  left: 0;
-}
+// .edit {
+//   position: absolute;
+//   z-index: 1;
+//   left: 0;
+// }
 
 a {
   text-decoration: none;
@@ -135,13 +141,13 @@ a {
 }
 
 .remove {
-  position: absolute;
-  z-index: 1;
-  right: 0;
+  // position: absolute;
+  // z-index: 1;
+  // right: 0;
 }
 
 .edit {
-  margin: 0;
+  // margin: 0;
 }
 
 .backIcon {
@@ -154,18 +160,20 @@ a {
   cursor: pointer;
 }
 
-.editIcon {
-  margin: 12px 10px;
+.icons {
+  margin: 5px 10px;
   float: right;
-  width: 25px;
-  height: 25px;
-  cursor: pointer;
 }
 
 .removeIcon {
-  margin: 10px;
-  float: right;
-  width: 25px;
-  height: 25px;
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+}
+
+.editIcon {
+  padding-right: 10px;
+  width: 20px;
+  height: 20px;
   cursor: pointer;
 }

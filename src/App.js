@@ -1,11 +1,15 @@
 import React, { useState, useEffect, createContext } from 'react';
-import { Route, Routes } from 'react-router-dom';
+import { Route, Routes, useLocation } from 'react-router-dom';
 import Content from './components/ContentWrapper';
 import Footer from './components/Footer';
 import Navigation from './components/Navigation';
 import Recipe from './components/Recipe';
-import Search from './components/Search';
-import { Login, Recipe as RecipeForm, Registration } from './components/Forms';
+import {
+  Edit,
+  Login,
+  Recipe as RecipeForm,
+  Registration,
+} from './components/Forms';
 import { fetchAllRecipes } from './services/recipeService';
 import { fetchAuthUser } from './services/userService';
 import { PATH, TRANSLATION } from './constants';
@@ -15,11 +19,13 @@ import AllRecipes from './components/AllRecipes';
 export const UserContext = createContext({});
 
 function App() {
+  const location = useLocation();
+  const previousLocation = location.state?.previousLocation;
+
   const [recipes, setRecipes] = useState([]);
   const [refreshKey, setRefreshKey] = useState(0);
   const [userSession, setUserSession] = useState(true);
   const [refreshAuth, setRefreshAuth] = useState(0);
-
   useEffect(() => {
     const fetchRecipes = async () => {
       await fetchAllRecipes().then((data) => setRecipes(data));
@@ -43,7 +49,7 @@ function App() {
   return (
     <UserContext.Provider value={userSession}>
       <div className={styles.wrapper}>
-        <Routes>
+        <Routes location={previousLocation || location}>
           <Route
             path={PATH.MAIN}
             element={
@@ -88,15 +94,6 @@ function App() {
             </>
           )}
           <Route
-            path={`${PATH.EDIT}:id`}
-            element={
-              <RecipeForm
-                setRefreshKey={setRefreshKey}
-                buttonName={TRANSLATION.SAVE}
-              />
-            }
-          ></Route>
-          <Route
             path={`${PATH.RECIPE}:id`}
             element={
               <>
@@ -106,7 +103,7 @@ function App() {
                   setUserSession={setUserSession}
                   setRefreshAuth={setRefreshAuth}
                 />
-                <Recipe setRefreshKey={setRefreshKey} />
+                <Recipe setRefreshKey={setRefreshKey} refreshKey={refreshKey} />
                 <Footer />
               </>
             }
@@ -142,6 +139,20 @@ function App() {
             }
           ></Route>
         </Routes>
+
+        {previousLocation && (
+          <Routes>
+            <Route
+              path={`${PATH.EDIT}:id`}
+              element={
+                <Edit
+                  setRefreshKey={setRefreshKey}
+                  buttonName={TRANSLATION.SAVE}
+                />
+              }
+            ></Route>
+          </Routes>
+        )}
       </div>
     </UserContext.Provider>
   );

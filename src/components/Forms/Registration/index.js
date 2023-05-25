@@ -50,7 +50,6 @@ function Registration(props) {
     setMessage(result.message);
     setRegister(true);
   };
-  console.log(register);
   return (
     <div>
       <div className={styles.wrapper}>

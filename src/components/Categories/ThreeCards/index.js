@@ -8,7 +8,7 @@ function ThreeCards(props) {
     props &&
     props.recipes &&
     props.recipes.filter((r) => r.type.includes(props.type));
-  const latestRecipes = filteredRecipes && filteredRecipes.slice(0, 3); // zmienić na slice(-3) jak naprawię obrazki
+  const latestRecipes = filteredRecipes && filteredRecipes.slice(-3).reverse(); // zmienić na slice(-3) jak naprawię obrazki
 
   return (
     <div className={styles.wrapper}>

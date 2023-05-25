@@ -9,8 +9,7 @@ function TwoCards(props) {
     props &&
     props.recipes &&
     props.recipes.filter((r) => r.type.includes(props.type));
-  const latestRecipes = filteredRecipes && filteredRecipes; // zmienić na slice(-2) jak naprawię obrazki
-  console.log(latestRecipes);
+  const latestRecipes = filteredRecipes && filteredRecipes.slice(-2).reverse(); // zmienić na slice(-2) jak naprawię obrazki
   return (
     <div
       className={clsx(

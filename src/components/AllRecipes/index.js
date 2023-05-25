@@ -5,7 +5,6 @@ import { useLocation } from 'react-router-dom';
 function AllRecipes(props) {
   const location = useLocation();
   const data = location.state;
-  console.log(data);
 
   return (
     <div>
