@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import clsx from 'clsx';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import FileBase64 from 'react-file-base64';
@@ -12,28 +12,41 @@ import cake from '../../../statics/images/cake.png';
 import styles from './styles.module.scss';
 import removeIcon from '../../../statics/images/remove-icon.svg';
 import { EditText, EditTextarea } from 'react-edit-text';
+import { UserContext } from '../../../App';
 
 function Recipe(props) {
   const appTitle = config.appTitle;
   const navigate = useNavigate();
   const { id } = useParams();
-  const [ areIngredients, setIngredients] = useState(false);
-
+  const userContext = useContext(UserContext);
+  console.log(userContext);
   const [values, setValues] = useState({
     title: '',
     description: '',
     image: '',
     type: [],
-    ingredients: []
+    ingredients: [],
+    showIngredients: true,
+    author: userContext,
   });
   const [warning, setWarning] = useState(false);
 
-  const { title, description, image, ingredients, type } = values;
+  const {
+    title,
+    description,
+    image,
+    ingredients,
+    showIngredients,
+    type,
+    author,
+  } = values;
+  console.log(values);
   const handleChange = (fieldName) => (event, base64) => {
     const currentValue = event.target.value;
 
     if (fieldName === 'ingredients') {
-      const ingredients = event.target.value.split('\n').filter(e => e !== '');
+      const ingredients = event.target.value.split('\n');
+
       setValues({
         ...values,
         [fieldName]: ingredients,
@@ -56,9 +69,15 @@ function Recipe(props) {
 
   const handleClick = async () => {
     if (id) {
-      await editRecipe(id, title, description, image.base64, ingredients, type).then(() =>
-        props.setRefreshKey((oldKey) => oldKey + 1)
-      );
+      await editRecipe(
+        id,
+        title,
+        description,
+        image.base64,
+        ingredients,
+        showIngredients,
+        type
+      ).then(() => props.setRefreshKey((oldKey) => oldKey + 1));
       navigate(PATH.MAIN);
       return;
     }
@@ -67,18 +86,20 @@ function Recipe(props) {
       return;
     }
 
-    await addRecipe(title, description, image.base64, ingredients, type).then(() =>
-      props.setRefreshKey((oldKey) => oldKey + 1)
-    );
+    await addRecipe(
+      title,
+      description,
+      image.base64,
+      ingredients,
+      type,
+      author
+    ).then(() => props.setRefreshKey((oldKey) => oldKey + 1));
     navigate(PATH.MAIN);
   };
 
   return (
     <div className={styles.wrapper}>
       <div className={styles.form}>
-     
-       
-
         <Link to={PATH.MAIN} className={styles.link}>
           {'< wróć na stronę główną'}
         </Link>
@@ -101,14 +122,30 @@ function Recipe(props) {
           <div>
             <div className={styles.checkbox}>
               <h5>Składniki</h5>
-              <input type="checkbox" value={areIngredients} onClick={() => setIngredients(!areIngredients)}></input>
+              <input
+                type='checkbox'
+                value={showIngredients}
+                onClick={() =>
+                  setValues({
+                    ...values,
+                    showIngredients: !values.showIngredients,
+                  })
+                }
+              ></input>
             </div>
-            {<textarea rows={5} 
-              disabled={!areIngredients}               
-              className={styles.test}
-              placeholder={areIngredients && "Dodawaj kolejne składniki po kliknięciu 'Enter'"}
-              onChange={handleChange('ingredients')}
-            />}
+            {
+              <textarea
+                rows={5}
+                disabled={showIngredients}
+                className={styles.test}
+                placeholder={
+                  !showIngredients
+                    ? "Dodawaj kolejne składniki po kliknięciu 'Enter'"
+                    : 'Kliknij checkbox by dodać składniki'
+                }
+                onChange={handleChange('ingredients')}
+              />
+            }
           </div>
           <div>
             <h5>Przygotowanie</h5>
@@ -145,23 +182,25 @@ function Recipe(props) {
       </div>
       <div className={styles.preview}>
         <div className={styles.image}>
-          {image && <img
-            className={styles.image}
-            src={URL.createObjectURL(image.file) }
-            alt={'cake'}
-          />}
+          {image && (
+            <img
+              className={styles.image}
+              src={URL.createObjectURL(image.file)}
+              alt={'cake'}
+            />
+          )}
         </div>
-         <div className={styles.recipeTitle}>
-            {title || 'Przykładowy tytuł'}
-          </div>
+        <div className={styles.recipeTitle}>{title || 'Przykładowy tytuł'}</div>
         <div className={styles.dash} />
         <div className={styles.desc}>
-          {areIngredients ? (
+          {!showIngredients ? (
             <>
-            <p className={styles.descTitle}>Składniki</p>
-            <ul>
-            {ingredients.map((i) => <li>{i}</li>)}
-            </ul>
+              <p className={styles.descTitle}>Składniki</p>
+              <ul>
+                {ingredients.map((ing, index) => {
+                  return ing ? <li key={index}>{ing}</li> : <br></br>;
+                })}
+              </ul>
             </>
           ) : null}
           <p className={styles.descTitle}>Przygotowanie</p>

@@ -57,8 +57,11 @@
   font-style: normal;
   text-decoration: none;
   margin: 1rem 0;
-  padding-bottom: 2rem;
+}
+
+.dash {
   border-bottom: 1px solid rgba(39, 40, 42, 0.3);
+  padding-bottom: 2rem;
 }
 
 .ingredients {

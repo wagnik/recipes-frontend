@@ -35,7 +35,14 @@ export const fetchRecipe = async (id) => {
   return result;
 };
 
-export const addRecipe = async (title, description, img, ingredients, type) => {
+export const addRecipe = async (
+  title,
+  description,
+  img,
+  ingredients,
+  type,
+  author
+) => {
   const body = {
     method: 'POST',
     headers: {
@@ -48,6 +55,7 @@ export const addRecipe = async (title, description, img, ingredients, type) => {
       img,
       ingredients,
       type,
+      author,
     }),
   };
 
@@ -62,7 +70,15 @@ export const addRecipe = async (title, description, img, ingredients, type) => {
   return result;
 };
 
-export const editRecipe = async (id, title, description, img, ingredients, type) => {
+export const editRecipe = async (
+  id,
+  title,
+  description,
+  img,
+  ingredients,
+  showIngredients,
+  type
+) => {
   const body = {
     method: 'PUT',
     headers: {
@@ -73,6 +89,7 @@ export const editRecipe = async (id, title, description, img, ingredients, type)
       description,
       img,
       ingredients,
+      showIngredients,
       type,
     }),
   };
