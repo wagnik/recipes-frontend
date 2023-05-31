@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import clsx from 'clsx';
 import { Link, useNavigate } from 'react-router-dom';
-import { SaveButton } from '../../Buttons';
 import { loginUser } from '../../../services/userService';
+import { BgColorButton } from '../../Buttons';
 import {
   PATH,
   TRANSLATION,
@@ -13,8 +13,8 @@ import mail from '../../../statics/icons/mail.svg';
 import unlock from '../../../statics/icons/unlock.svg';
 import showPass from '../../../statics/icons/showPass.svg';
 import hidePass from '../../../statics/icons/hidePass.svg';
-import styles from './login.module.scss';
 import x from '../../../statics/icons/x.svg';
+import styles from './login.module.scss';
 
 function Login(props) {
   const navigate = useNavigate();
@@ -23,10 +23,10 @@ function Login(props) {
     email: '',
     password: '',
   });
-  const { email, password } = values;
-  const [passwordShown, setPasswordShown] = useState(false);
-  const [successMessage, setSuccessMessage] = useState(false);
+  const [displayedPassword, setDisplayedPassword] = useState(false);
   const [message, setMessage] = useState('');
+
+  const { email, password } = values;
 
   const handleChange = (fieldName) => (event) => {
     setValues({
@@ -36,14 +36,15 @@ function Login(props) {
   };
 
   const togglePassword = () => {
-    setPasswordShown(!passwordShown);
+    setDisplayedPassword(!displayedPassword);
   };
 
   const handleClick = async () => {
     const result = await loginUser(email, password);
-    // setSuccessMessage(!!t.userSession)
-    // props.setRefreshAuth((old) => old + 1);
+
     setMessage(result.message);
+    props.setMessage(result.message);
+
     if (SUCCESS_MESSAGE.hasOwnProperty(result.message)) {
       props.setRefreshAuth((old) => old + 1);
       navigate(PATH.MAIN);
@@ -73,7 +74,7 @@ function Login(props) {
           className={clsx(styles.input, styles.passwordInput)}
           value={password}
           placeholder={'Hasło'}
-          type={passwordShown ? 'text' : 'password'}
+          type={displayedPassword ? 'text' : 'password'}
           onChange={handleChange('password')}
         />
         <div
@@ -81,14 +82,14 @@ function Login(props) {
           className={clsx(styles.iconWrapper, styles.iconWrapperRight)}
         >
           <img
-            src={passwordShown ? hidePass : showPass}
+            src={displayedPassword ? hidePass : showPass}
             className={styles.icon}
             alt={TRANSLATION.LOGO}
           />
         </div>
       </div>
       <div className={styles.button}>
-        <SaveButton
+        <BgColorButton
           title={props.buttonName}
           form={true}
           onClick={handleClick}
@@ -107,18 +108,6 @@ function Login(props) {
           </Link>
         </p>
       </div>
-      {SUCCESS_MESSAGE.hasOwnProperty(message) && (
-        <div className={styles.message}>
-          {SUCCESS_MESSAGE[message]}
-          <br></br>
-          <img
-            src={x}
-            className={styles.icon}
-            alt={'x'}
-            onClick={() => setMessage('')}
-          />
-        </div>
-      )}
       {ERROR_MESSAGE.hasOwnProperty(message) && (
         <div className={styles.errorMessage}>
           <div className={styles.text}>{ERROR_MESSAGE[message]}</div>

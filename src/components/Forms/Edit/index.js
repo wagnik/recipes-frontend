@@ -1,18 +1,19 @@
-import React, { useEffect, useRef, useState } from 'react';
-import clsx from 'clsx';
+import React, { useEffect, useRef } from 'react';
 import { EditText, EditTextarea } from 'react-edit-text';
-import { useParams, Link, useNavigate } from 'react-router-dom';
-import { fetchRecipe, deleteRecipe } from '../../../services/recipeService';
-import backIcon from '../../../statics/images/right-arrow.png';
-import editIcon from '../../../statics/images/edit.svg';
+import { useParams, useNavigate } from 'react-router-dom';
+import clsx from 'clsx';
+import FileBase64 from 'react-file-base64';
+import { BgColorButton, TransparrentButton } from '../../Buttons';
+import { editRecipe, fetchRecipe } from '../../../services/recipeService';
+import { TRANSLATION } from '../../../constants';
 import removeIcon from '../../../statics/images/remove-icon.svg';
 import styles from './styles.module.scss';
-import { PATH, TRANSLATION } from '../../../constants';
-import { SaveButton, NavButton } from '../../Buttons';
-import FileBase64 from 'react-file-base64';
-import { editRecipe } from '../../../services/recipeService';
 
 function Edit(props) {
+  const { id } = useParams();
+  const modalRef = useRef();
+  const navigate = useNavigate();
+
   const [recipe, getRecipe] = React.useState({
     title: '',
     description: '',
@@ -20,9 +21,6 @@ function Edit(props) {
     ingredients: [],
     showIngredients: true,
   });
-  const { id } = useParams();
-  const navigate = useNavigate();
-  const modalRef = useRef();
   const [values, setValues] = React.useState({
     title: '',
     description: '',
@@ -33,14 +31,14 @@ function Edit(props) {
 
   const { title, description, image, ingredients, type, showIngredients } =
     values;
-  console.log(recipe.ingredients, showIngredients);
+
   const handleChange = (fieldName) => (event, base64) => {
-    if (fieldName === 'image') {
-      setValues({
-        ...values,
-        [fieldName]: event.target.value,
-      });
-    }
+    // if (fieldName === 'image') {
+    //   setValues({
+    //     ...values,
+    //     [fieldName]: event.target.value,
+    //   });
+    // }
     if (fieldName === 'ingredients') {
       const ingredients = event.target.value.split('\n');
 
@@ -50,6 +48,7 @@ function Edit(props) {
       });
       return;
     }
+
     setValues({
       ...values,
       [fieldName]: base64 ?? event.target.value,
@@ -67,6 +66,7 @@ function Edit(props) {
       });
     };
     fetchRecipes();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id]);
 
   const handleClick = async () => {
@@ -89,9 +89,9 @@ function Edit(props) {
     <div ref={modalRef} className={styles.wrapper}>
       <div className={styles.modal}>
         <div className={styles.recipeWrapper}>
-          <div className={styles.bg}>
+          <div className={styles.bgImage}>
             <img
-              className={styles.bg}
+              className={styles.bgImage}
               src={
                 image.file
                   ? URL.createObjectURL(image.file || image)
@@ -104,10 +104,10 @@ function Edit(props) {
             <div className={styles.editImage}>
               <FileBase64
                 multiple={false}
-                onClick='this.form.reset()'
+                // onClick='this.form.reset()'
                 onDone={(base64) => setValues({ ...values, image: base64 })}
               />
-              <input
+              {/* <input
                 type='file'
                 accept={'image/*'}
                 onChange={handleChange('image')}
@@ -120,7 +120,7 @@ function Edit(props) {
                   alt={TRANSLATION.REMOVE}
                   title={TRANSLATION.REMOVE}
                 />
-              </div>
+              </div> */}
             </div>
             <EditText
               className={styles.recipeTitle}
@@ -129,10 +129,10 @@ function Edit(props) {
               onChange={handleChange('title')}
             />
             <div className={styles.dash} />
-            <div className={styles.desc}>
+            <div className={styles.description}>
               <>
                 <div className={styles.checkbox}>
-                  <p className={styles.descTitle}>Składniki</p>
+                  <p className={styles.descriptionTitle}>Składniki</p>
                   <input
                     type='checkbox'
                     value={showIngredients}
@@ -149,13 +149,14 @@ function Edit(props) {
                   rows={4}
                   readonly={!showIngredients}
                   inputClassName={clsx(
+                    styles.descriptionArea,
                     styles.editField,
-                    styles.te,
-                    styles.description
+                    styles.ingredientsArea
                   )}
                   className={clsx(
                     styles.editField,
-                    styles.description,
+                    styles.descriptionArea,
+                    styles.ingredientsArea,
                     !showIngredients && styles.disabled
                   )}
                   placeholder={
@@ -171,23 +172,26 @@ function Edit(props) {
                   onChange={handleChange('ingredients')}
                 />
               </>
-              <p className={styles.descTitle}>Przygotowanie</p>
+              <p className={styles.descriptionTitle}>Przygotowanie</p>
               <EditTextarea
-                className={styles.description}
-                inputClassName={clsx(styles.editField, styles.description)}
-                rows={5}
+                className={styles.descriptionArea}
+                inputClassName={clsx(styles.editField, styles.descriptionArea)}
+                rows={8}
                 value={description || recipe.description}
                 onChange={handleChange('description')}
               />
             </div>
           </div>
         </div>
-        <div className={styles.save}>
-          <NavButton title={'Anuluj'} onClick={() => navigate(-1)}></NavButton>
-          <SaveButton
+        <div className={styles.saveArea}>
+          <TransparrentButton
+            title={'Anuluj'}
+            onClick={() => navigate(-1)}
+          ></TransparrentButton>
+          <BgColorButton
             title={TRANSLATION.SAVE}
             onClick={handleClick}
-          ></SaveButton>
+          ></BgColorButton>
         </div>
       </div>
     </div>

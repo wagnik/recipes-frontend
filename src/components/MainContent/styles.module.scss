@@ -1,22 +1,16 @@
 @import './../../styles/colors.scss';
 
 .wrapper {
+  position: relative;
   box-sizing: border-box;
-  flex-shrink: 0;
-  width: 100%;
-  height: min-content; /* 592px */
   display: flex;
+  gap: 30px;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   padding: 100px 200px;
   background-color: #ffffff;
   overflow: hidden;
-  position: relative;
-  align-content: center;
-  flex-wrap: nowrap;
-  gap: 30px;
-  border-radius: 0px 0px 0px 0px;
 }
 
 @media (max-width: 1024px) {

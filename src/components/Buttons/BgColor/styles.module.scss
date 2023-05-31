@@ -66,13 +66,3 @@
   transform: scale(0.95);
   background-color: black;
 }
-
-.noBackground {
-  background-color: $light-gray;
-  color: $black;
-  margin-right: 20px;
-}
-
-.noBackground:hover {
-  background-color: $gray;
-}

@@ -21,10 +21,10 @@
   opacity: 0.7;
 }
 
-.img {
+.image {
   height: 300px;
   max-width: 100%; //for svg
-  min-width: 20vw; //for png/jpg
+  min-width: 23.5vw; //for png/jpg
   object-fit: none;
   overflow: hidden;
   background-color: rgba(39, 40, 42, 0.3);
@@ -50,6 +50,11 @@
   font-size: 16px;
   letter-spacing: -0.03px;
   margin-bottom: 1.5rem;
+  height: 1.2em;
+  width: 16rem;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 
 .description {

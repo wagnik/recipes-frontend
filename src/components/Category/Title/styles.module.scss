@@ -1,0 +1,26 @@
+@import './../../../styles/colors.scss';
+
+.wrapper {
+  width: 100%;
+  display: inline-block;
+}
+
+.title {
+  display: inline-block;
+  color: #27282a;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 44px;
+  font-weight: 600;
+  letter-spacing: -0.05em;
+  text-transform: capitalize;
+  text-align: left;
+}
+
+.title:hover {
+  color: $dark-red;
+}
+
+.title:active {
+  color: black;
+  transform: scale(0.95);
+}

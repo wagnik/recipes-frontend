@@ -8,15 +8,15 @@ function TwoCards(props) {
   const filteredRecipes =
     props &&
     props.recipes &&
-    props.recipes.filter((r) => r.type.includes(props.type));
-  const latestRecipes = filteredRecipes && filteredRecipes.slice(-2).reverse(); // zmienić na slice(-2) jak naprawię obrazki
+    (props.type ? props.recipes.filter((r) => r.type.includes(props.type)) : props.recipes);
+ 
+  const latestRecipes = filteredRecipes && filteredRecipes.reverse().slice(0, 2); // zmienić na slice(-2) jak naprawię obrazki
+  
   return (
     <div
       className={clsx(
         styles.wrapper,
-        latestRecipes.length === 1
-          ? styles.wrapperOneElement && styles.oneCard
-          : styles.manyCard
+        styles.manyCard
       )}
     >
       {latestRecipes &&
@@ -27,7 +27,7 @@ function TwoCards(props) {
                 <img
                   src={recipe.img}
                   alt={recipe.title}
-                  className={styles.img}
+                  className={styles.image}
                 ></img>
                 <div className={styles.content}>
                   <div className={styles.title}>{recipe.title}</div>

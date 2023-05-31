@@ -1,25 +1,17 @@
 import React, { useState, useContext } from 'react';
-import clsx from 'clsx';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import FileBase64 from 'react-file-base64';
-import { NavButton, SaveButton } from '../../Buttons';
-import { addRecipe, editRecipe } from '../../../services/recipeService';
-import { PATH, TRANSLATION } from '../../../constants';
-import config from '../../../config.json';
-import logo from './../../../logo.svg';
-import backIcon from '../../../statics/images/right-arrow.png';
-import cake from '../../../statics/images/cake.png';
-import styles from './styles.module.scss';
-import removeIcon from '../../../statics/images/remove-icon.svg';
-import { EditText, EditTextarea } from 'react-edit-text';
 import { UserContext } from '../../../App';
+import { addRecipe, editRecipe } from '../../../services/recipeService';
+import { TransparrentButton, BgColorButton } from '../../Buttons';
+import { PATH } from '../../../constants';
+import styles from './styles.module.scss';
 
 function Recipe(props) {
-  const appTitle = config.appTitle;
   const navigate = useNavigate();
   const { id } = useParams();
   const userContext = useContext(UserContext);
-  console.log(userContext);
+
   const [values, setValues] = useState({
     title: '',
     description: '',
@@ -27,9 +19,13 @@ function Recipe(props) {
     type: [],
     ingredients: [],
     showIngredients: true,
-    author: userContext,
+    author: userContext
+      ? {
+          id: userContext.id,
+          name: userContext.name,
+        }
+      : {},
   });
-  const [warning, setWarning] = useState(false);
 
   const {
     title,
@@ -40,7 +36,7 @@ function Recipe(props) {
     type,
     author,
   } = values;
-  console.log(values);
+
   const handleChange = (fieldName) => (event, base64) => {
     const currentValue = event.target.value;
 
@@ -53,6 +49,7 @@ function Recipe(props) {
       });
       return;
     }
+
     if (fieldName === 'type') {
       setValues({
         ...values,
@@ -66,7 +63,7 @@ function Recipe(props) {
       [fieldName]: base64 ?? event.target.value,
     });
   };
-
+  console.log(values)
   const handleClick = async () => {
     if (id) {
       await editRecipe(
@@ -79,10 +76,6 @@ function Recipe(props) {
         type
       ).then(() => props.setRefreshKey((oldKey) => oldKey + 1));
       navigate(PATH.MAIN);
-      return;
-    }
-    if (!title || !description) {
-      setWarning(true);
       return;
     }
 
@@ -113,7 +106,7 @@ function Recipe(props) {
           <div>
             <h5>Tytuł</h5>
             <input
-              className={styles.test}
+              className={styles.placeholder}
               value={title}
               placeholder='Przykładowy tytuł'
               onChange={handleChange('title')}
@@ -137,7 +130,7 @@ function Recipe(props) {
               <textarea
                 rows={5}
                 disabled={showIngredients}
-                className={styles.test}
+                className={styles.placeholder}
                 placeholder={
                   !showIngredients
                     ? "Dodawaj kolejne składniki po kliknięciu 'Enter'"
@@ -150,7 +143,7 @@ function Recipe(props) {
           <div>
             <h5>Przygotowanie</h5>
             <textarea
-              className={styles.test}
+              className={styles.placeholder}
               value={description}
               rows={8}
               placeholder='Dodaj instrukcję krok po kroku'
@@ -176,8 +169,11 @@ function Recipe(props) {
           </div>
         </div>
         <div className={styles.button}>
-          <NavButton title={'Anuluj'} onClick={() => navigate(PATH.MAIN)} />
-          <SaveButton title={props.buttonName} onClick={handleClick} />
+          <TransparrentButton
+            title={'Anuluj'}
+            onClick={() => navigate(PATH.MAIN)}
+          />
+          <BgColorButton title={props.buttonName} onClick={handleClick} />
         </div>
       </div>
       <div className={styles.preview}>
@@ -192,10 +188,10 @@ function Recipe(props) {
         </div>
         <div className={styles.recipeTitle}>{title || 'Przykładowy tytuł'}</div>
         <div className={styles.dash} />
-        <div className={styles.desc}>
+        <div className={styles.description}>
           {!showIngredients ? (
             <>
-              <p className={styles.descTitle}>Składniki</p>
+              <p className={styles.descriptionTitle}>Składniki</p>
               <ul>
                 {ingredients.map((ing, index) => {
                   return ing ? <li key={index}>{ing}</li> : <br></br>;
@@ -203,8 +199,8 @@ function Recipe(props) {
               </ul>
             </>
           ) : null}
-          <p className={styles.descTitle}>Przygotowanie</p>
-          <p className={styles.description}>
+          <p className={styles.descriptionTitle}>Przygotowanie</p>
+          <p className={styles.descriptionArea}>
             {description || 'Dodaj instrukcję krok po kroku'}
           </p>
         </div>

@@ -4,36 +4,13 @@
   width: auto;
   height: 100%;
   display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
   margin: 0 100px;
-  box-sizing: border-box;
   letter-spacing: -0.03em;
-  box-sizing: content-box;
 }
 
 .form {
   padding: 2.5rem 0;
-  flex: 0 0 40%;
   width: 40%;
-}
-
-.preview {
-  position: fixed;
-  // flex: 0 0 50%;
-  width: 50%;
-  height: 100%;
-  right: 2rem;
-  float: right;
-  border: 1px solid $light-gray;
-}
-
-.image {
-  width: 100%;
-  height: 150px;
-  object-fit: none;
-  margin-bottom: -1rem;
-  background-color: $light-gray;
 }
 
 .link {
@@ -47,65 +24,17 @@
   font-weight: 700;
 }
 
+.link:hover {
+  color: $dark-red;
+}
+
 .heading {
   font-family: 'DM Sans', sans-serif;
-  color: #27282a;
   font-size: 32px;
   font-weight: 700;
   line-height: 1.25;
   margin: 0 0 1rem;
   letter-spacing: -0.04em;
-}
-
-.editImage {
-  display: flex;
-  justify-content: left;
-  margin: 10px 10px;
-}
-
-.editImage input[type='file'] {
-  font-size: 16px;
-  border-radius: 5px;
-  background-color: $light-gray;
-  margin: 10px 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif, 'Caveat';
-}
-
-.editImage input[type='file']::file-selector-button {
-  padding: 0.5875rem 0.9375rem;
-  background-color: #b33737;
-  border: none;
-  margin-right: 1rem;
-  border-radius: 0.625rem;
-  width: auto; /* 96px */
-  height: auto; /* 16px */
-  font-weight: 300;
-  color: #ffffff;
-  font-size: 12px;
-  letter-spacing: 0.5px;
-  line-height: 1;
-  font-family: 'DM Sans', sans-serif;
-  cursor: pointer;
-}
-
-.editImage input[type='file']::file-selector-button:hover {
-  background-color: #982f2f;
-}
-
-.editImage input[type='file']::file-selector-button:active {
-  transform: scale(0.95);
-  background-color: black;
-}
-
-.removeIcon2 {
-  margin-top: 0.9rem;
-  margin-left: -1.5rem;
-  // position: absolute;
-  width: 20px;
-  height: 20px;
-  cursor: pointer;
 }
 
 .paragraph {
@@ -126,16 +55,7 @@ h5 {
   font-family: 'DM Sans', sans-serif;
 }
 
-.checkbox h5 {
-  display: inline;
-  margin-right: 0.5rem;
-}
-
-.checkbox {
-  margin: 0 0 0.5rem;
-}
-
-.test {
+.placeholder {
   max-width: -webkit-fill-available;
   width: 100%;
   padding: 0.825rem 1.1175rem;
@@ -147,9 +67,83 @@ h5 {
   font-family: 'DM Sans', sans-serif;
 }
 
-.test:focus {
+.placeholder:focus {
   border: 1px solid rgba(39, 40, 42, 0.3);
   outline: none;
+}
+
+.checkbox h5 {
+  display: inline;
+  margin-right: 0.5rem;
+}
+
+.checkbox {
+  margin: 0 0 0.5rem;
+}
+
+.editImage {
+  margin: 0 0 2rem;
+}
+
+.editImage input[type='file'] {
+  font-size: 16px;
+  background-color: $light-gray;
+  border-radius: 10px;
+  margin: 10px 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif, 'Caveat';
+}
+
+.editImage input[type='file']::file-selector-button {
+  padding: 0.6rem 1rem;
+  background-color: #b33737;
+  border: none;
+  margin-right: 1rem;
+  border-radius: 0.625rem;
+  width: auto; /* 96px */
+  height: auto; /* 16px */
+  font-weight: 300;
+  color: #ffffff;
+  font-size: 12px;
+  letter-spacing: 0.5px;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.editImage input[type='file']::file-selector-button:hover {
+  background-color: #982f2f;
+}
+
+.editImage input[type='file']::file-selector-button:active {
+  transform: scale(0.95);
+  background-color: black;
+}
+
+.select {
+  display: inline-block;
+  margin-bottom: 2rem;
+  width: 100%;
+}
+
+.select select {
+  display: inline-block;
+  width: 100%;
+  cursor: pointer;
+  padding: 0.825rem 1.1175rem;
+  outline: 0;
+  border: 0;
+  border-radius: 0.625rem;
+  background: $light-gray;
+  overflow: hidden;
+  color: #000000;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+}
+
+.select select:hover {
+  background: $light-gray;
 }
 
 .button {
@@ -157,17 +151,21 @@ h5 {
   padding-bottom: 30px;
 }
 
-.login {
-  text-align: center;
-  font-size: 30px;
-  color: $dark-red;
+.preview {
+  position: fixed;
+  width: 50%;
+  height: 100%;
+  right: 2rem;
+  float: right;
+  border: 1px solid $light-gray;
 }
 
-.logoImage {
-  float: left;
-  margin: 10px 0;
-  width: 70px;
-  height: 70px;
+.image {
+  width: 100%;
+  height: 150px;
+  object-fit: none;
+  margin-bottom: -1rem;
+  background-color: $light-gray;
 }
 
 .recipeTitle {
@@ -199,21 +197,21 @@ h5 {
   margin: 0 1rem;
 }
 
-.desc {
+.description {
   box-sizing: content-box;
   font-size: 16px;
   text-align: justify;
   margin: 1rem 1.5rem 0;
 }
 
-.descTitle {
+.descriptionTitle {
   font-size: 20px;
   font-weight: 700;
   margin-bottom: 1rem;
   padding-left: 10px;
 }
 
-.description {
+.descriptionArea {
   color: rgba(39, 40, 42);
   cursor: pointer;
   padding: 10px;
@@ -225,102 +223,4 @@ h5 {
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif, 'Caveat';
   white-space: pre-wrap;
-}
-
-.editField {
-  cursor: text;
-  border: none;
-  outline: none;
-}
-
-.logoTitle {
-  font-family: 'Caveat', cursive;
-  font-size: 30px;
-  float: left;
-  margin: 30px 10px 0;
-}
-
-.logoInput {
-  display: block;
-  align-items: center;
-  padding: 30px;
-  margin-bottom: 30px;
-}
-
-.backIcon {
-  position: absolute;
-  margin: 0 10px;
-  float: left;
-  width: 40px;
-  height: 40px;
-  transform: rotateX(180deg);
-  cursor: pointer;
-}
-
-.editImage {
-  display: flex;
-  justify-content: left;
-  margin: 0 0 2rem;
-}
-
-.editImage input[type='file'] {
-  font-size: 16px;
-  border-radius: 5px;
-  margin: 10px 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif, 'Caveat';
-}
-
-.editImage input[type='file']::file-selector-button {
-  padding: 0.5875rem 0.9375rem;
-  background-color: #b33737;
-  border: none;
-  margin-right: 1rem;
-  border-radius: 0.625rem;
-  width: auto; /* 96px */
-  height: auto; /* 16px */
-  font-weight: 300;
-  color: #ffffff;
-  font-size: 12px;
-  letter-spacing: 0.5px;
-  line-height: 1;
-  font-family: 'DM Sans', sans-serif;
-  cursor: pointer;
-}
-
-.editImage input[type='file']::file-selector-button:hover {
-  background-color: #982f2f;
-}
-
-.editImage input[type='file']::file-selector-button:active {
-  transform: scale(0.95);
-  background-color: black;
-}
-
-.select {
-  position: relative;
-  display: inline-block;
-  margin-bottom: 2rem;
-  width: 100%;
-}
-
-.select select {
-  font-family: 'DM Sans', sans-serif;
-  display: inline-block;
-  width: 100%;
-  cursor: pointer;
-  padding: 0.825rem 1.1175rem;
-  outline: 0;
-  border: 0;
-  border-radius: 0.625rem;
-  background: #59595a32;
-  color: #000000;
-  appearance: none;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-}
-
-.select select:hover {
-  background: #4848485c;
 }

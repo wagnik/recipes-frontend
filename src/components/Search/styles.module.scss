@@ -11,6 +11,15 @@
   }
 }
 
+.wrapper input:focus {
+  border: 0px;
+  outline: none;
+}
+
+.wrapper input::placeholder {
+  color: $gray;
+}
+
 .searchInput {
   box-sizing: border-box;
   width: 100%;
@@ -24,13 +33,4 @@
   border: 0px;
   border-radius: 6px;
   display: inline-block;
-}
-
-.wrapper input:focus {
-  border: 0px;
-  outline: none;
-}
-
-.wrapper input::placeholder {
-  color: $gray;
 }

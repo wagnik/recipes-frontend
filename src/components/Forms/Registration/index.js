@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import clsx from 'clsx';
-import { Link, useNavigate } from 'react-router-dom';
-import { SaveButton } from '../../Buttons';
+import { Link } from 'react-router-dom';
+import { BgColorButton } from '../../Buttons';
 import { registerUser } from '../../../services/userService';
 import {
   PATH,
@@ -9,28 +9,25 @@ import {
   ERROR_MESSAGE,
   SUCCESS_MESSAGE,
 } from '../../../constants';
-import logo from './../../../logo.svg';
-import backIcon from '../../../statics/images/right-arrow.png';
-import styles from './styles.module.scss';
+
 import mail from '../../../statics/icons/mail.svg';
+import hidePass from '../../../statics/icons/hidePass.svg';
+import showPass from '../../../statics/icons/showPass.svg';
 import unlock from '../../../statics/icons/unlock.svg';
 import user from '../../../statics/icons/user.svg';
-import showPass from '../../../statics/icons/showPass.svg';
-import hidePass from '../../../statics/icons/hidePass.svg';
 import x from '../../../statics/icons/x.svg';
+import styles from './styles.module.scss';
 
 function Registration(props) {
-  const navigate = useNavigate();
-
   const [values, setValues] = useState({
     name: '',
     email: '',
     password: '',
   });
-  const [register, setRegister] = useState(false);
   const [message, setMessage] = useState('');
-  const { name, email, password } = values;
   const [passwordShown, setPasswordShown] = useState(false);
+
+  const { name, email, password } = values;
 
   const handleChange = (fieldName) => (event) => {
     setValues({
@@ -45,11 +42,10 @@ function Registration(props) {
 
   const handleClick = async () => {
     const result = await registerUser(name, email, password);
-    // const t = await registerUser(name, email, password).then(() => {
-    //   setRegister(true);
+
     setMessage(result.message);
-    setRegister(true);
   };
+
   return (
     <div>
       <div className={styles.wrapper}>
@@ -104,7 +100,7 @@ function Registration(props) {
           </div>
         </div>
         <div className={styles.button}>
-          <SaveButton
+          <BgColorButton
             title={props.buttonName}
             form={true}
             onClick={handleClick}

@@ -1,20 +1,20 @@
 import React, { useState, useEffect, createContext } from 'react';
 import { Route, Routes, useLocation } from 'react-router-dom';
-import Content from './components/ContentWrapper';
-import Footer from './components/Footer';
 import Navigation from './components/Navigation';
+import MainContent from './components/MainContent';
 import Recipe from './components/Recipe';
+import Grid from '../src/components/Grids/Grid';
 import {
   Edit,
   Login,
   Recipe as RecipeForm,
   Registration,
 } from './components/Forms';
+import Footer from './components/Footer';
 import { fetchAllRecipes } from './services/recipeService';
 import { fetchAuthUser } from './services/userService';
 import { PATH, TRANSLATION } from './constants';
 import styles from './App.module.scss';
-import AllRecipes from './components/AllRecipes';
 
 export const UserContext = createContext({});
 
@@ -22,10 +22,12 @@ function App() {
   const location = useLocation();
   const previousLocation = location.state?.previousLocation;
 
+  const [message, setMessage] = useState('');
   const [recipes, setRecipes] = useState([]);
   const [refreshKey, setRefreshKey] = useState(0);
-  const [userSession, setUserSession] = useState(true);
   const [refreshAuth, setRefreshAuth] = useState(0);
+  const [userSession, setUserSession] = useState(true);
+
   useEffect(() => {
     const fetchRecipes = async () => {
       await fetchAllRecipes().then((data) => setRecipes(data));
@@ -58,8 +60,10 @@ function App() {
                   setRefreshKey={setRefreshKey}
                   setUserSession={setUserSession}
                   setRefreshAuth={setRefreshAuth}
+                  message={message}
+                  setMessage={setMessage}
                 />
-                <Content recipes={recipes} setRefreshKey={setRefreshKey} />
+                <MainContent recipes={recipes} setRefreshKey={setRefreshKey} />
                 <Footer />
               </>
             }
@@ -88,6 +92,7 @@ function App() {
                     buttonName={TRANSLATION.SUBMIT_LOGIN}
                     setUserSession={setUserSession}
                     setRefreshAuth={setRefreshAuth}
+                    setMessage={setMessage}
                   />
                 }
               ></Route>
@@ -102,6 +107,8 @@ function App() {
                   setRefreshKey={setRefreshKey}
                   setUserSession={setUserSession}
                   setRefreshAuth={setRefreshAuth}
+                  message={message}
+                  setMessage={setMessage}
                 />
                 <Recipe setRefreshKey={setRefreshKey} refreshKey={refreshKey} />
                 <Footer />
@@ -117,8 +124,14 @@ function App() {
                   setRefreshKey={setRefreshKey}
                   setUserSession={setUserSession}
                   setRefreshAuth={setRefreshAuth}
+                  message={message}
+                  setMessage={setMessage}
                 />
-                <AllRecipes recipes={recipes} setRefreshKey={setRefreshKey} />
+                <Grid
+                  recipes={recipes}
+                  type={location.state}
+                  setRefreshKey={setRefreshKey}
+                />
                 <Footer />
               </>
             }
@@ -132,8 +145,14 @@ function App() {
                   setRefreshKey={setRefreshKey}
                   setUserSession={setUserSession}
                   setRefreshAuth={setRefreshAuth}
+                  message={message}
+                  setMessage={setMessage}
                 />
-                <AllRecipes recipes={recipes} setRefreshKey={setRefreshKey} />
+                <Grid
+                  recipes={recipes}
+                  type={location.state}
+                  setRefreshKey={setRefreshKey}
+                />
                 <Footer />
               </>
             }

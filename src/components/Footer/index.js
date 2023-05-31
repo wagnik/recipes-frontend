@@ -1,8 +1,8 @@
-import styles from './styles.module.scss';
 import { NavLink } from 'react-router-dom';
 import { PATH, TRANSLATION } from '../../constants';
 import logo from './../../logo.svg';
 import config from '../../config.json';
+import styles from './styles.module.scss';
 
 const appTitle = config.appTitle;
 

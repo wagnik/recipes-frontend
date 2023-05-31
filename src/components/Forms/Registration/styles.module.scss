@@ -1,110 +1,5 @@
 @import './../../../styles/colors.scss';
-
-.wrapper {
-  margin: 100px auto;
-  width: 30%;
-}
-
-@media (max-width: 1024px) {
-  .wrapper {
-    width: 40%;
-  }
-}
-
-.heading {
-  margin-bottom: 1.5rem;
-  font-family: 'DM Sans', sans-serif;
-  font-size: 36px;
-  letter-spacing: -0.04em;
-  line-height: 1.25;
-  text-align: center;
-}
-
-.formInput {
-  display: flex;
-  margin-bottom: 1.5rem;
-}
-
-.iconWrapper {
-  display: flex;
-  align-items: center;
-  padding: 0.825rem 0.575rem 0.825rem 1rem;
-  border: 1px solid rgba(39, 40, 42, 0.3);
-  border-radius: 0.625rem 0 0 0.625rem;
-  border-right: 0;
-}
-
-.iconWrapperRight {
-  padding: 0.825rem 1rem 0.825rem 0.575rem;
-  border-radius: 0 0.625rem 0.625rem 0;
-  border-right: 1px solid rgba(39, 40, 42, 0.3);
-  border-left: 0;
-}
-
-.icon {
-  width: 20px;
-  height: 20px;
-}
-
-.input {
-  width: 100%;
-  padding: 0.825rem 1.1875rem;
-  font-size: 1.125rem;
-  line-height: 1.2;
-  border: 1px solid rgba(39, 40, 42, 0.3);
-  border-radius: 0 0.625rem 0.625rem 0;
-  border-left: 0;
-}
-
-.passwordInput {
-  border-radius: 0;
-  border-right: 0;
-}
-
-.input::placeholder {
-  color: rgba(39, 40, 42, 0.302);
-}
-
-.input:focus {
-  outline: 0;
-}
-
-.input:active {
-  outline: 0;
-}
-
-.inputName {
-  border-radius: 0.625rem;
-  border-left: 1px solid rgba(39, 40, 42, 0.3);
-}
-
-.button {
-  text-align: center;
-  padding: 0;
-  margin-bottom: 1.5rem;
-}
-
-.info {
-  text-align: center;
-  color: rgba(39, 40, 42, 0.302);
-  letter-spacing: -0.03em;
-}
-
-.noAccountInfo {
-  margin-bottom: 1.5rem;
-}
-
-.link {
-  color: $dark-red;
-}
-
-.link:hover {
-  color: black;
-}
-
-.link:active {
-  color: black;
-}
+@import './../Login/login.module.scss';
 
 .message {
   color: #27695d;
@@ -113,7 +8,6 @@
   left: 0;
   width: 100%;
   background-color: #cceade;
-  margin-top: -100px;
   text-align: center;
   padding: 1.5rem 0;
   border: 1px solid #bae1d0;
@@ -126,30 +20,6 @@
   .link:hover {
     color: rgba(140, 181, 164, 0.608);
   }
-
-  .icon {
-    width: 14px;
-    height: 14px;
-    fill: rgb(255, 255, 255);
-    position: absolute;
-    top: 10px;
-    right: 20px;
-    cursor: pointer;
-  }
-}
-
-.errorMessage {
-  color: #9b2056;
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  background-color: #fdd4da;
-  margin-top: -100px;
-  text-align: center;
-  padding: 2rem 0;
-  box-sizing: border-box;
-  border: 1px solid #f9bfcc;
 
   .icon {
     width: 14px;

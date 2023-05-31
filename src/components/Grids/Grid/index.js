@@ -5,14 +5,17 @@ import rightArrow from '../../../statics/icons/rightArrow.svg';
 import styles from './styles.module.scss';
 
 function Grid(props) {
+  const typeAddedToURL = window.location.href.split('/')[4]
+    ? decodeURI(window.location.href.split('/')[4])
+    : undefined;
+  const type = props.type || typeAddedToURL;
   const filteredRecipes =
     props &&
     props.recipes &&
-    props.type &&
-    props.recipes.filter((r) => r.type.includes(props.type));
-  const recipes = props.type
-    ? filteredRecipes.reverse()
-    : props && props.recipes.reverse();
+    type &&
+    props.recipes.filter((r) => r.type.includes(type));
+
+  const recipes = type ? filteredRecipes.reverse() : props && props.recipes;
 
   return (
     <div className={styles.wrapper}>
@@ -29,7 +32,7 @@ function Grid(props) {
                     <img
                       src={recipe.img}
                       alt={recipe.title}
-                      className={styles.img}
+                      className={styles.image}
                     ></img>
                     <div className={styles.content}>
                       <div className={styles.title}>{recipe.title}</div>

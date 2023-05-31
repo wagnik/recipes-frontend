@@ -8,12 +8,6 @@
   margin-bottom: 3.75rem;
 }
 
-.wrapperOneElement {
-  display: block;
-  width: 33%;
-  align-self: baseline;
-}
-
 .card {
   display: flex;
   flex-direction: column;
@@ -25,21 +19,17 @@
   opacity: 0.7;
 }
 
-.manyCard {
-  width: 100%;
-}
-
-.img {
+.image {
   object-fit: none;
   height: 250px;
   max-width: 100%; //for svg
-  min-width: 35vw; //for png/jpg
+  min-width: 25vw; //for png/jpg
   overflow: hidden;
   background-color: lightgray;
 }
 
 @media (max-width: 1024px) {
-  .img {
+  .image {
     max-height: 180px;
   }
 }
@@ -57,6 +47,9 @@
   color: #27282a;
   font-size: 20px;
   letter-spacing: -0.03px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 
 .description {

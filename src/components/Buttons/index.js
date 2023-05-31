@@ -1,2 +1,2 @@
-export { default as NavButton } from './Navigation';
-export { default as SaveButton } from './Save';
+export { default as TransparrentButton } from './Transparent';
+export { default as BgColorButton } from './BgColor';

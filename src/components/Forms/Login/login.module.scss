@@ -1,8 +1,10 @@
 @import './../../../styles/colors.scss';
 
 .wrapper {
-  margin: 100px auto;
+  padding: 100px 0;
+  margin: 0 auto;
   width: 30%;
+  font-family: 'DM Sans', sans-serif;
 }
 
 @media (max-width: 1024px) {
@@ -13,7 +15,6 @@
 
 .heading {
   margin-bottom: 1.5rem;
-  font-family: 'DM Sans', sans-serif;
   font-size: 36px;
   letter-spacing: -0.04em;
   line-height: 1.25;
@@ -56,27 +57,24 @@
   border-left: 0;
 }
 
-.passwordInput {
-  border-radius: 0;
-  border-right: 0;
+input:focus,
+:active {
+  outline: 0;
 }
 
 .input::placeholder {
   color: rgba(39, 40, 42, 0.302);
 }
 
-input:focus {
-  outline: 0;
-}
-
-input:active {
-  outline: 0;
+.passwordInput {
+  border-radius: 0;
+  border-right: 0;
 }
 
 .button {
-  text-align: center;
-  padding: 0;
   margin-bottom: 1.5rem;
+  padding: 0;
+  text-align: center;
 }
 
 .info {
@@ -97,42 +95,6 @@ input:active {
   color: black;
 }
 
-.link:active {
-  color: black;
-}
-
-.message {
-  color: #27695d;
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  background-color: #cceade;
-  margin-top: -100px;
-  text-align: center;
-  padding: 1.5rem 0;
-  border: 1px solid #bae1d0;
-
-  .link {
-    color: inherit;
-    text-decoration: underline;
-  }
-
-  .link:hover {
-    color: rgba(140, 181, 164, 0.608);
-  }
-
-  .icon {
-    width: 14px;
-    height: 14px;
-    fill: rgb(255, 255, 255);
-    position: absolute;
-    top: 10px;
-    right: 20px;
-    cursor: pointer;
-  }
-}
-
 .errorMessage {
   color: #9b2056;
   position: absolute;
@@ -140,7 +102,6 @@ input:active {
   left: 0;
   width: 100%;
   background-color: #fdd4da;
-  margin-top: -100px;
   text-align: center;
   padding: 1.5rem 0;
   box-sizing: border-box;
