@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { PATH } from '../../../constants';
 import styles from './styles.module.scss';
+import PlaceholderCard from '../PlaceholderCard';
 
 function ThreeCards(props) {
   const filteredRecipes =
@@ -16,7 +17,7 @@ function ThreeCards(props) {
 
   return (
     <div className={styles.wrapper}>
-      {latestRecipes &&
+      {latestRecipes && latestRecipes.length > 0 ? (
         latestRecipes.map((recipe, index) => {
           return (
             <Link key={`card${index}`} to={`${PATH.RECIPE}${recipe._id}`}>
@@ -33,7 +34,14 @@ function ThreeCards(props) {
               </div>
             </Link>
           );
-        })}
+        })
+      ) : (
+        <>
+          <PlaceholderCard size={'threeCards'} />
+          <PlaceholderCard size={'threeCards'} />
+          <PlaceholderCard size={'threeCards'} />
+        </>
+      )}
     </div>
   );
 }

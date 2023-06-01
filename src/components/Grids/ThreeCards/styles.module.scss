@@ -1,11 +1,10 @@
 @import './../../../styles/colors.scss';
 
 .wrapper {
-  display: flex;
-  overflow: visible;
-  justify-content: center;
-  text-align: left;
-  gap: 24px;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-gap: 24px;
+  margin-bottom: 3.75rem;
 }
 
 .card {

@@ -1,11 +1,14 @@
 import React, { useEffect, useContext } from 'react';
-import { useParams, Link, useNavigate, useLocation } from 'react-router-dom';
+import { useParams, useNavigate, useLocation } from 'react-router-dom';
 import { UserContext } from '../../App';
-import { fetchRecipe, deleteRecipe } from '../../services/recipeService';
-import { PATH, TRANSLATION } from '../../constants';
-import editIcon from '../../statics/images/edit.svg';
-import removeIcon from '../../statics/images/remove-icon.svg';
+import { fetchRecipe } from '../../services/recipeService';
+import { PATH } from '../../constants';
 import styles from './styles.module.scss';
+import { BackToButton, EditButton, RemoveButton } from '../Buttons';
+import Title from './Title';
+import Author from './Author';
+import Description from './Description';
+import Image from './Image';
 
 function Recipe(props) {
   const navigate = useNavigate();
@@ -17,6 +20,8 @@ function Recipe(props) {
 
   const { author } = recipe;
 
+  const handleClick = () => navigate(PATH.MAIN);
+
   useEffect(() => {
     const fetchRecipes = async () => {
       await fetchRecipe(id).then((data) => setRecipe(data));
@@ -27,62 +32,25 @@ function Recipe(props) {
   return (
     <div className={styles.wrapper}>
       <div className={styles.recipeWrapper}>
-        <img src={recipe.img} alt={recipe.title} className={styles.image}></img>
+        <Image src={recipe.img} title={recipe.title} />
         <div className={styles.content}>
-          <div>
-            <Link
-              to={PATH.MAIN}
-              className={styles.link}
-            >{`< wróć na stronę główną`}</Link>
-            {(author && author.id === userContext.id) || !author ? (
-              <div className={styles.icons}>
-                <Link
-                  to={`${PATH.EDIT}${recipe._id}`}
-                  state={{ previousLocation: location }}
-                >
-                  <img
-                    className={styles.editIcon}
-                    src={editIcon}
-                    alt={TRANSLATION.EDIT}
-                    title={TRANSLATION.EDIT}
-                  />
-                </Link>
-                <Link
-                  to={PATH.MAIN}
-                  onClick={() => {
-                    deleteRecipe(recipe._id);
-                    props.setRefreshKey((oldKey) => oldKey + 1);
-                  }}
-                >
-                  <img
-                    className={styles.removeIcon}
-                    onClick={() => navigate(PATH.MAIN)}
-                    src={removeIcon}
-                    alt={TRANSLATION.REMOVE}
-                    title={TRANSLATION.REMOVE}
-                  />
-                </Link>
-              </div>
-            ) : null}
-          </div>
-          <div className={styles.recipeTitle}>{recipe.title || 'Tytuł'}</div>
-          {author && <div className={styles.author}> Autor: {author.name}</div>}
-          <div className={styles.dash} />
-          <div className={styles.description}>
-            {recipe.ingredients && recipe.ingredients.length > 0 && (
-              <>
-                <p className={styles.descriptionTitle}>Składniki</p>
-                <ul>
-                  {recipe.ingredients &&
-                    recipe.ingredients.map((i, index) => {
-                      return i ? <li key={index}>{i}</li> : <br></br>;
-                    })}
-                </ul>
-              </>
-            )}
-            <p className={styles.descriptionTitle}>Przygotowanie</p>
-            <div className={styles.descriptionArea}>{recipe.description}</div>
-          </div>
+          <BackToButton />
+          {(author && author.id === userContext.id) || !author ? (
+            <div className={styles.buttons}>
+              <EditButton recipe={recipe} location={location} />
+              <RemoveButton
+                recipe={recipe}
+                onClick={handleClick}
+                setRefreshKey={props.setRefreshKey}
+              />
+            </div>
+          ) : null}
+          <Title title={recipe.title} />
+          {author ? <Author author={author.name} /> : null}
+          <Description
+            ingredients={recipe.ingredients}
+            description={recipe.description}
+          />
         </div>
       </div>
     </div>

@@ -10,9 +10,13 @@ function Title(props) {
 
   return (
     <div className={styles.wrapper}>
-      <Link to={linkCategory} state={props.type}>
-        <div className={styles.title}>{props.title}</div>
-      </Link>
+      {props.title ? (
+        <Link to={linkCategory} state={props.type}>
+          <div className={styles.title}>{props.title}</div>
+        </Link>
+      ) : (
+        <div className={styles.titlePlaceholder} />
+      )}
       <Link to={linkCategory} state={props.type}>
         <BgColorButton displayInline={true} title='Wyświetl wszystkie' />
       </Link>

@@ -1,0 +1,35 @@
+@import '../../../styles/colors.scss';
+
+.wrapper {
+  margin: 10px 0;
+}
+
+.wrapper input[type='file'] {
+  font-size: 16px;
+  margin: 10px 0;
+  border-radius: 10px;
+  background-color: $light-gray;
+}
+
+.wrapper input[type='file']::file-selector-button {
+  margin-right: 1rem;
+  padding: 0.6rem 1rem;
+  background-color: #b33737;
+  border: none;
+  font-size: 12px;
+  font-weight: 300;
+  letter-spacing: 0.5px;
+  line-height: 1;
+  cursor: pointer;
+  color: #ffffff;
+  border-radius: 0.625rem;
+}
+
+.wrapper input[type='file']::file-selector-button:hover {
+  background-color: #982f2f;
+}
+
+.wrapper input[type='file']::file-selector-button:active {
+  transform: scale(0.95);
+  background-color: black;
+}

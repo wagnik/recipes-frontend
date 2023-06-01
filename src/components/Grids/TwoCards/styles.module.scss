@@ -1,9 +1,9 @@
 @import './../../../styles/colors.scss';
 
 .wrapper {
-  display: flex;
-  overflow: visible;
-  gap: 24px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 24px;
   justify-content: center;
   margin-bottom: 3.75rem;
 }
@@ -23,7 +23,7 @@
   object-fit: none;
   height: 250px;
   max-width: 100%; //for svg
-  min-width: 25vw; //for png/jpg
+  min-width: 30vw; //for png/jpg
   overflow: hidden;
   background-color: lightgray;
 }
@@ -59,4 +59,30 @@
   font-size: 12px;
   letter-spacing: -0.03px;
   word-break: break-word;
+  text-align: justify;
+}
+
+.imagePlaceholder {
+  height: 250px;
+  width: 100vw; //for svg
+  background-color: lightgray;
+}
+
+@media (max-width: 1024px) {
+  .imagePlaceholder {
+    max-height: 180px;
+  }
+}
+
+.titlePlaceholder {
+  width: 40%;
+  height: 2rem;
+  margin: 1rem auto;
+  background-color: $light-gray;
+}
+
+.descriptionPlaceholder {
+  width: 100%;
+  height: 4rem;
+  background-color: $light-gray;
 }

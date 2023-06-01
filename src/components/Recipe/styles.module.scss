@@ -35,87 +35,9 @@
   }
 }
 
-.link {
-  font-size: 18px;
-  color: black;
-  margin: 2rem;
-  letter-spacing: -0.04em;
-  line-height: 1.25;
-  font-family: 'DM Sans', sans-serif;
-  font-weight: 700;
-  text-decoration: none;
-  color: inherit;
-}
-
-.link:hover {
-  color: $dark-red;
-}
-
-.link:active {
-  color: black;
-}
-
-.icons {
+.buttons {
   margin: 5px 10px;
   float: right;
-}
-
-.editIcon {
-  padding-right: 10px;
-  width: 20px;
-  height: 20px;
-  cursor: pointer;
-}
-
-.removeIcon {
-  width: 20px;
-  height: 20px;
-  cursor: pointer;
-}
-
-.recipeTitle {
-  font-family: 'Caveat', cursive;
-  font-family: 'DM Sans', sans-serif;
-  color: $light-red;
-  color: #27282a;
-  font-size: 50px;
-  font-size: 38px;
-  font-weight: 700;
-  line-height: 1.1;
-  font-style: normal;
-  text-decoration: none;
-  margin: 1rem 0;
-  padding: 0 10px;
-}
-
-.author {
-  text-transform: capitalize;
-  font-weight: 600;
-  padding: 0 10px;
-}
-
-.dash {
-  border-bottom: 1px solid rgba(39, 40, 42, 0.3);
-  padding-bottom: 2rem;
-}
-
-.description {
-  padding: 10px;
-  font-size: 16px;
-  text-align: justify;
-  margin-bottom: 5rem;
-  min-height: 200px;
-  word-wrap: break-word;
-}
-
-.descriptionTitle {
-  font-size: 20px;
-  font-weight: 700;
-  margin-bottom: 1rem;
-}
-
-.descriptionArea {
-  color: rgba(39, 40, 42);
 }
 
 .mainContent {

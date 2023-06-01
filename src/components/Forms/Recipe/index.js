@@ -3,9 +3,17 @@ import { Link, useNavigate, useParams } from 'react-router-dom';
 import FileBase64 from 'react-file-base64';
 import { UserContext } from '../../../App';
 import { addRecipe, editRecipe } from '../../../services/recipeService';
-import { TransparrentButton, BgColorButton } from '../../Buttons';
+import {
+  TransparrentButton,
+  BgColorButton,
+  FileButton,
+  BackToButton,
+} from '../../Buttons';
 import { PATH } from '../../../constants';
 import styles from './styles.module.scss';
+import Image from '../../Recipe/Image';
+import Title from '../../Recipe/Title';
+import Description from '../../Recipe/Description';
 
 function Recipe(props) {
   const navigate = useNavigate();
@@ -37,6 +45,8 @@ function Recipe(props) {
     author,
   } = values;
 
+  const handleImageFile = (base64) => setValues({ ...values, image: base64 });
+
   const handleChange = (fieldName) => (event, base64) => {
     const currentValue = event.target.value;
 
@@ -63,7 +73,7 @@ function Recipe(props) {
       [fieldName]: base64 ?? event.target.value,
     });
   };
-  console.log(values)
+
   const handleClick = async () => {
     if (id) {
       await editRecipe(
@@ -93,9 +103,7 @@ function Recipe(props) {
   return (
     <div className={styles.wrapper}>
       <div className={styles.form}>
-        <Link to={PATH.MAIN} className={styles.link}>
-          {'< wróć na stronę główną'}
-        </Link>
+        <BackToButton />
         <div className={styles.heading}>Dodaj przepis</div>
         <div className={styles.paragraph}>
           Podaj wszystkie potrzebne składniki, instrukcję krok po kroku oraz
@@ -152,12 +160,7 @@ function Recipe(props) {
           </div>
           <div>
             <h5>Zdjęcie</h5>
-            <div className={styles.editImage}>
-              <FileBase64
-                multiple={false}
-                onDone={(base64) => setValues({ ...values, image: base64 })}
-              />
-            </div>
+            <FileButton onDone={handleImageFile} />
           </div>
           <div className={styles.select}>
             <h5>Rodzaj</h5>
@@ -179,30 +182,20 @@ function Recipe(props) {
       <div className={styles.preview}>
         <div className={styles.image}>
           {image && (
-            <img
-              className={styles.image}
+            <Image
               src={URL.createObjectURL(image.file)}
-              alt={'cake'}
+              title={title}
+              preview={true}
             />
           )}
         </div>
-        <div className={styles.recipeTitle}>{title || 'Przykładowy tytuł'}</div>
-        <div className={styles.dash} />
-        <div className={styles.description}>
-          {!showIngredients ? (
-            <>
-              <p className={styles.descriptionTitle}>Składniki</p>
-              <ul>
-                {ingredients.map((ing, index) => {
-                  return ing ? <li key={index}>{ing}</li> : <br></br>;
-                })}
-              </ul>
-            </>
-          ) : null}
-          <p className={styles.descriptionTitle}>Przygotowanie</p>
-          <p className={styles.descriptionArea}>
-            {description || 'Dodaj instrukcję krok po kroku'}
-          </p>
+        <div className={styles.previewContent}>
+          <Title title={title || 'Przykładowy tytuł'} />
+          <Description
+            showIngredients={!showIngredients}
+            previewIngredients={ingredients}
+            description={description || 'Dodaj instrukcję krok po kroku'}
+          />
         </div>
       </div>
     </div>

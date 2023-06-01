@@ -24,3 +24,10 @@
   color: black;
   transform: scale(0.95);
 }
+
+.titlePlaceholder {
+  display: inline-block;
+  width: 25%;
+  height: 3rem;
+  background-color: $light-gray;
+}

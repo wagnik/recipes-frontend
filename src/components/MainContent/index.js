@@ -5,7 +5,14 @@ import Category from '../Category';
 function MainContent(props) {
   return (
     <div className={styles.wrapper}>
-      {props.recipes.length === 0 && 'Dodaj przepisy'}
+      {props.recipes.length === 0 && (
+        <>
+          <Category twoCards={true} />
+          <Category twoCards={false} />
+          <Category twoCards={true} />
+          <Category twoCards={false} />
+        </>
+      )}
       <Category
         type='Śniadanie'
         title='Śniadania'

@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { PATH, TRANSLATION } from '../../../constants';
 import rightArrow from '../../../statics/icons/rightArrow.svg';
 import styles from './styles.module.scss';
+import PlaceholderCard from '../PlaceholderCard';
 
 function Grid(props) {
   const typeAddedToURL = window.location.href.split('/')[4]
@@ -24,7 +25,7 @@ function Grid(props) {
       </Link>
       <div>
         <div className={styles.recipes}>
-          {recipes &&
+          {recipes && recipes.length > 0 ? (
             recipes.map((recipe, index) => {
               return (
                 <Link key={`card${index}`} to={`${PATH.RECIPE}${recipe._id}`}>
@@ -45,7 +46,14 @@ function Grid(props) {
                   </div>
                 </Link>
               );
-            })}
+            })
+          ) : (
+            <>
+              <PlaceholderCard size={'grid'} />
+              <PlaceholderCard size={'grid'} />
+              <PlaceholderCard size={'grid'} />
+            </>
+          )}
         </div>
       </div>
     </div>

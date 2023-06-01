@@ -3,11 +3,12 @@ import { EditText, EditTextarea } from 'react-edit-text';
 import { useParams, useNavigate } from 'react-router-dom';
 import clsx from 'clsx';
 import FileBase64 from 'react-file-base64';
-import { BgColorButton, TransparrentButton } from '../../Buttons';
+import { BgColorButton, FileButton, TransparrentButton } from '../../Buttons';
 import { editRecipe, fetchRecipe } from '../../../services/recipeService';
 import { TRANSLATION } from '../../../constants';
 import removeIcon from '../../../statics/images/remove-icon.svg';
 import styles from './styles.module.scss';
+import Image from '../../Recipe/Image';
 
 function Edit(props) {
   const { id } = useParams();
@@ -31,6 +32,8 @@ function Edit(props) {
 
   const { title, description, image, ingredients, type, showIngredients } =
     values;
+
+  const handleImageFile = (base64) => setValues({ ...values, image: base64 });
 
   const handleChange = (fieldName) => (event, base64) => {
     // if (fieldName === 'image') {
@@ -89,39 +92,15 @@ function Edit(props) {
     <div ref={modalRef} className={styles.wrapper}>
       <div className={styles.modal}>
         <div className={styles.recipeWrapper}>
-          <div className={styles.bgImage}>
-            <img
-              className={styles.bgImage}
-              src={
-                image.file
-                  ? URL.createObjectURL(image.file || image)
-                  : recipe.img
-              }
-            />
-          </div>
-
+          <Image
+            src={
+              image.file ? URL.createObjectURL(image.file || image) : recipe.img
+            }
+            title={recipe.title}
+            preview={true}
+          />
           <div className={styles.content}>
-            <div className={styles.editImage}>
-              <FileBase64
-                multiple={false}
-                // onClick='this.form.reset()'
-                onDone={(base64) => setValues({ ...values, image: base64 })}
-              />
-              {/* <input
-                type='file'
-                accept={'image/*'}
-                onChange={handleChange('image')}
-              />
-              <div>
-                <img
-                  className={styles.removeIcon2}
-                  onClick={() => setValues({ ...values, image: recipe.img })}
-                  src={removeIcon}
-                  alt={TRANSLATION.REMOVE}
-                  title={TRANSLATION.REMOVE}
-                />
-              </div> */}
-            </div>
+            <FileButton onDone={handleImageFile} />
             <EditText
               className={styles.recipeTitle}
               inputClassName={clsx(styles.recipeTitle, styles.editField)}
