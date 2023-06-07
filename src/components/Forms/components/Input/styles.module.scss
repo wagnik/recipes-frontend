@@ -1,0 +1,72 @@
+@import '../../../../styles/colors.scss';
+
+.wrapper {
+  position: relative;
+}
+
+.formInput {
+  display: flex;
+  margin-bottom: 2rem;
+  width: 100%;
+}
+
+.icon {
+  padding: 0.825rem 1.1875rem;
+  position: absolute;
+  width: 20px;
+  height: 20px;
+}
+
+.iconRight {
+  padding: 0.825rem 1.1875rem;
+  position: absolute;
+  top: 5px;
+  right: 10px;
+  padding: 10px;
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+}
+
+.iconRight:hover {
+  background-color: $light-gray2;
+  border-radius: 100px;
+}
+
+.input {
+  width: 100%;
+  padding: 0.825rem 3.5rem;
+  font-size: 1.125rem;
+  line-height: 1.2;
+  border: 2px solid rgba(39, 40, 42, 0.3);
+  border-radius: 0.625rem;
+}
+
+input:focus,
+:active {
+  outline: 0;
+}
+
+.input::placeholder {
+  color: rgba(39, 40, 42, 0.302);
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0 30px $light-gray inset;
+}
+
+.warningMessage {
+  text-align: left;
+  font-weight: 600;
+  font-size: 12px;
+  margin: -1.5rem 0 1.5rem;
+  color: $dark-red;
+}
+
+.warningInput {
+  border: 2px solid $dark-red;
+  border-radius: 0.625rem;
+}

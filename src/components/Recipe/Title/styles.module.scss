@@ -13,21 +13,8 @@
 }
 
 .titlePlaceholder {
-  width: 80%;
+  width: 50%;
   height: 3.6rem;
-  margin: 1rem 0.6rem;
-  background-color: $light-gray;
-}
-
-.author {
-  text-transform: capitalize;
-  font-weight: 600;
-  padding: 0 10px;
-}
-
-.authorPlaceholder {
-  width: 20%;
-  height: 2rem;
   margin: 1rem 0.6rem;
   background-color: $light-gray;
 }

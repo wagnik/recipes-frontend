@@ -6,7 +6,6 @@
 }
 
 .description {
-  padding: 10px;
   font-size: 16px;
   text-align: justify;
   margin-bottom: 5rem;
@@ -22,18 +21,27 @@
 
 .descriptionArea {
   color: rgba(39, 40, 42);
+  text-indent: 1rem;
+  white-space: pre-wrap;
 }
 
 .descriptionTitlePlaceholder {
+  float: left;
   width: 20%;
   height: 2rem;
-  margin: 1rem 0;
+  margin: 0 0 1rem;
   background-color: $light-gray;
 }
 
 .descriptionAreaPlaceholder {
-  width: 100%;
-  height: 12rem;
+  float: left;
+  width: 55%;
+  height: calc(400px - 6rem);
   margin: 1rem 0;
   background-color: $light-gray;
+}
+
+ul {
+  list-style-position: inside;
+  text-indent: 1rem;
 }

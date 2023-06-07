@@ -1,4 +1,4 @@
-@import './../../../styles/colors.scss';
+@import '../../../styles/colors.scss';
 
 .wrapper {
   display: grid;
@@ -20,12 +20,12 @@
 }
 
 .image {
-  object-fit: none;
+  object-fit: cover;
   height: 250px;
   max-width: 100%; //for svg
   min-width: 30vw; //for png/jpg
   overflow: hidden;
-  background-color: lightgray;
+  background-color: $light-gray2;
 }
 
 @media (max-width: 1024px) {
@@ -65,7 +65,7 @@
 .imagePlaceholder {
   height: 250px;
   width: 100vw; //for svg
-  background-color: lightgray;
+  background-color: $light-gray2;
 }
 
 @media (max-width: 1024px) {

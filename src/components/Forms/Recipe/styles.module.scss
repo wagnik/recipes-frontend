@@ -13,36 +13,6 @@
   width: 40%;
 }
 
-.link {
-  width: fit-content;
-  font-size: 18px;
-  color: black;
-  margin: 0;
-  letter-spacing: -0.03em;
-  line-height: 1.25;
-  font-family: 'DM Sans', sans-serif;
-  font-weight: 700;
-}
-
-.link:hover {
-  color: $dark-red;
-}
-
-.heading {
-  font-family: 'DM Sans', sans-serif;
-  font-size: 32px;
-  font-weight: 700;
-  line-height: 1.25;
-  margin: 0 0 1rem;
-  letter-spacing: -0.04em;
-}
-
-.paragraph {
-  font-size: 1rem;
-  color: #27282ab3;
-  margin: 0 0 2rem;
-}
-
 .inputs,
 h5 {
   color: inherit;
@@ -70,6 +40,32 @@ h5 {
 .placeholder:focus {
   border: 1px solid rgba(39, 40, 42, 0.3);
   outline: none;
+}
+
+.warningMessage {
+  text-align: left;
+  font-weight: 600;
+  font-size: 12px;
+  margin: -1.5rem 0 1.5rem;
+  color: $dark-red;
+}
+
+.warningMessage2 {
+  text-align: left;
+  font-weight: 600;
+  font-size: 12px;
+  margin: 0.5rem 0;
+  color: $dark-red;
+}
+
+.warningInput {
+  border: 2px solid $dark-red;
+  border-radius: 0.625rem;
+}
+
+.warningInput:focus {
+  border: 2px solid $dark-red;
+  border-radius: 0.625rem;
 }
 
 .checkbox h5 {
@@ -120,30 +116,10 @@ h5 {
   background-color: black;
 }
 
-.select {
+.select2 {
   display: inline-block;
   margin-bottom: 2rem;
   width: 100%;
-}
-
-.select select {
-  display: inline-block;
-  width: 100%;
-  cursor: pointer;
-  padding: 0.825rem 1.1175rem;
-  outline: 0;
-  border: 0;
-  border-radius: 0.625rem;
-  background: $light-gray;
-  overflow: hidden;
-  color: #000000;
-  appearance: none;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-}
-
-.select select:hover {
-  background: $light-gray;
 }
 
 .button {
@@ -158,13 +134,14 @@ h5 {
   right: 2rem;
   float: right;
   border: 1px solid $light-gray;
+  overflow: auto;
 }
 
 .image {
-  width: 100%;
-  height: 150px;
-  object-fit: none;
-  margin-bottom: -1rem;
+  float: left;
+  width: 50%;
+  height: 200px;
+  margin: 0 1.5rem 1.5rem 0;
   background-color: $light-gray;
 }
 
@@ -193,8 +170,7 @@ h5 {
 
 .dash {
   border-bottom: 1px solid rgba(39, 40, 42, 0.3);
-  padding-bottom: 1rem;
-  margin: 0 1rem;
+  margin: 2rem 0;
 }
 
 .description {

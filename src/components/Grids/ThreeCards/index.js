@@ -1,8 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { PATH } from '../../../constants';
-import styles from './styles.module.scss';
+import { PATH } from '../../constants';
 import PlaceholderCard from '../PlaceholderCard';
+
+import styles from './styles.module.scss';
 
 function ThreeCards(props) {
   const filteredRecipes =
@@ -12,15 +13,14 @@ function ThreeCards(props) {
       ? props.recipes.filter((r) => r.type.includes(props.type))
       : props.recipes);
 
-  const latestRecipes =
-    filteredRecipes && filteredRecipes.reverse().slice(0, 3); // zmienić na slice(-3) jak naprawię obrazki
+  const latestRecipes = filteredRecipes && filteredRecipes.slice(-3).reverse();
 
   return (
     <div className={styles.wrapper}>
       {latestRecipes && latestRecipes.length > 0 ? (
         latestRecipes.map((recipe, index) => {
           return (
-            <Link key={`card${index}`} to={`${PATH.RECIPE}${recipe._id}`}>
+            <Link key={`card${index}`} to={`${PATH.recipe}${recipe._id}`}>
               <div className={styles.card}>
                 <img
                   src={recipe.img}

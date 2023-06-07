@@ -1,19 +1,16 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext } from 'react';
 import { NavLink } from 'react-router-dom';
 import { UserContext } from '../../App';
 import { logoutUser } from '../../services/userService';
-import { TransparrentButton, BgColorButton } from '../Buttons';
-import { PATH, SUCCESS_MESSAGE, TRANSLATION } from '../../constants';
-import logo from './../../logo.svg';
-import x from '../../statics/icons/x.svg';
+import { TransparrentButton, ColorButton } from '../Buttons';
+import { PATH, TRANSLATION } from '../constants';
 import config from '../../config.json';
-import styles from './styles.module.scss';
 
-const appTitle = config.appTitle;
+import styles from './styles.module.scss';
+import logo from './../../logo.svg';
 
 function Navigation(props) {
   const userContext = useContext(UserContext);
-  const [message, setMessage] = useState('');
 
   const toCapitalise = (name) => {
     return name.toLowerCase().replace(/^./, (str) => str.toUpperCase());
@@ -21,56 +18,40 @@ function Navigation(props) {
 
   return (
     <div className={styles.wrapper}>
-      <NavLink to={PATH.MAIN}>
+      <NavLink to={PATH.main}>
         <div className={styles.logo}>
-          <img src={logo} className={styles.logoImage} alt={TRANSLATION.LOGO} />
-          <div className={styles.logoTitle}>{appTitle}</div>
+          <img src={logo} className={styles.logoImage} alt={TRANSLATION.logo} />
+          <div className={styles.logoTitle}>{config.appTitle}</div>
         </div>
       </NavLink>
       <div className={styles.buttons}>
         {!userContext?.email && (
           <>
-            <NavLink to={PATH.LOGIN}>
-              <TransparrentButton title={TRANSLATION.LOGIN} />
+            <NavLink to={PATH.login}>
+              <TransparrentButton title={TRANSLATION.login} />
             </NavLink>
-            <NavLink to={PATH.REGISTRATION}>
-              <BgColorButton title={TRANSLATION.REGISTER} />
+            <NavLink to={PATH.register}>
+              <ColorButton title={TRANSLATION.register} />
             </NavLink>
           </>
         )}
         {userContext?.email && (
           <>
-            <NavLink to={PATH.MAIN}>
+            <NavLink to={window.location}>
               <TransparrentButton
-                title={`${TRANSLATION.LOGOUT}, ${toCapitalise(
+                title={`${TRANSLATION.logout}, ${toCapitalise(
                   userContext?.name
                 )}`}
                 onClick={async () => {
-                  const result = await logoutUser();
-                  setMessage(result.message);
+                  await logoutUser().then(() => window.location.reload());
                   props.setUserSession({});
                 }}
               />
             </NavLink>
-            <NavLink to={PATH.ADD_RECIPE}>
-              <BgColorButton title={TRANSLATION.ADD_RECIPE} />
+            <NavLink to={PATH.addRecipe}>
+              <ColorButton title={TRANSLATION.addRecipe} />
             </NavLink>
           </>
-        )}
-        {SUCCESS_MESSAGE.hasOwnProperty(message || props.message) && (
-          <div className={styles.message}>
-            {SUCCESS_MESSAGE[message || props.message]}
-            <br></br>
-            <img
-              src={x}
-              className={styles.icon}
-              alt={'x'}
-              onClick={() => {
-                setMessage('');
-                props.setMessage('');
-              }}
-            />
-          </div>
         )}
       </div>
     </div>

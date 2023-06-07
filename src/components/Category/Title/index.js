@@ -1,25 +1,32 @@
 import { Link } from 'react-router-dom';
-import { BgColorButton } from '../../Buttons';
-import { PATH } from '../../../constants';
+import { ColorButton } from '../../Buttons';
+import { PATH, TRANSLATION } from '../../constants';
+
 import styles from './styles.module.scss';
 
 function Title(props) {
   const linkCategory = props.type
-    ? `${PATH.TYPE_RECIPES}${props.type}`
-    : `${PATH.ALL_RECIPES}`;
+    ? `${PATH.typeRecipes}${props.type}`
+    : props.showAll && `${PATH.allRecipes}`;
 
   return (
     <div className={styles.wrapper}>
       {props.title ? (
-        <Link to={linkCategory} state={props.type}>
-          <div className={styles.title}>{props.title}</div>
-        </Link>
+        props.showAll ? (
+          <Link to={linkCategory} state={props.type}>
+            <div className={styles.title}>{props.title}</div>
+          </Link>
+        ) : (
+          <div className={styles.onlyTitle}>{props.title}</div>
+        )
       ) : (
         <div className={styles.titlePlaceholder} />
       )}
-      <Link to={linkCategory} state={props.type}>
-        <BgColorButton displayInline={true} title='Wyświetl wszystkie' />
-      </Link>
+      {props.showAll && (
+        <Link to={linkCategory} state={props.type}>
+          <ColorButton displayInline={true} title={TRANSLATION.viewAll} />
+        </Link>
+      )}
     </div>
   );
 }

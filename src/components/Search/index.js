@@ -6,7 +6,7 @@ function Search() {
     <div className={styles.wrapper}>
       <input
         className={styles.searchInput}
-        placeholder={TRANSLATION.SEARCH_INPUT}
+        placeholder={TRANSLATION.searchInput}
       />
     </div>
   );

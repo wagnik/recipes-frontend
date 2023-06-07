@@ -7,10 +7,14 @@ function Image(props) {
     <img
       src={props.src}
       alt={props.title}
-      className={clsx(styles.image, props.preview && styles.preview)}
+      className={clsx(
+        styles.image,
+        props.preview && styles.preview,
+        props.edit && styles.edit
+      )}
     ></img>
   ) : (
-    <div className={styles.image} />
+    <div className={clsx(styles.imagePlaceholder, props.edit && styles.edit)} />
   );
 }
 

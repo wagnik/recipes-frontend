@@ -1,0 +1,20 @@
+@import '../../../../styles/colors.scss';
+
+.info {
+  margin-top: 2rem;
+  text-align: center;
+  color: rgba(39, 40, 42, 0.302);
+  letter-spacing: -0.03em;
+}
+
+.noHasAccount {
+  margin-bottom: 1.5rem;
+}
+
+.link {
+  color: $dark-red;
+}
+
+.link:hover {
+  color: black;
+}

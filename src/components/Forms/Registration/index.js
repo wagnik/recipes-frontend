@@ -1,22 +1,21 @@
 import React, { useState } from 'react';
-import clsx from 'clsx';
 import { Link } from 'react-router-dom';
-import { BgColorButton } from '../../Buttons';
 import { registerUser } from '../../../services/userService';
 import {
   PATH,
   TRANSLATION,
-  ERROR_MESSAGE,
   SUCCESS_MESSAGE,
-} from '../../../constants';
+  PLACEHOLDER,
+} from '../../constants';
 
-import mail from '../../../statics/icons/mail.svg';
-import hidePass from '../../../statics/icons/hidePass.svg';
-import showPass from '../../../statics/icons/showPass.svg';
-import unlock from '../../../statics/icons/unlock.svg';
-import user from '../../../statics/icons/user.svg';
-import x from '../../../statics/icons/x.svg';
+import { ErrorMessage, HasAccount, Header, Input } from '../components';
+import { ColorButton } from '../../Buttons';
+
 import styles from './styles.module.scss';
+import emailIcon from '../../../statics/icons/email.svg';
+import unlockIcon from '../../../statics/icons/unlock.svg';
+import userIcon from '../../../statics/icons/user.svg';
+import cancelIcon from '../../../statics/icons/cancel.svg';
 
 function Registration(props) {
   const [values, setValues] = useState({
@@ -24,8 +23,12 @@ function Registration(props) {
     email: '',
     password: '',
   });
+  const [missingSubmitFields, setMissingSubmitFields] = useState({
+    email: false,
+    name: false,
+    password: false,
+  });
   const [message, setMessage] = useState('');
-  const [passwordShown, setPasswordShown] = useState(false);
 
   const { name, email, password } = values;
 
@@ -36,11 +39,15 @@ function Registration(props) {
     });
   };
 
-  const togglePassword = () => {
-    setPasswordShown(!passwordShown);
-  };
-
   const handleClick = async () => {
+    if (!email || !password || !name) {
+      return setMissingSubmitFields({
+        ...values,
+        email: !email && true,
+        name: !name && true,
+        password: !password && true,
+      });
+    }
     const result = await registerUser(name, email, password);
 
     setMessage(result.message);
@@ -49,107 +56,58 @@ function Registration(props) {
   return (
     <div>
       <div className={styles.wrapper}>
-        <div className={styles.heading}>{TRANSLATION.REGISTER}</div>
-        <div className={styles.formInput}>
-          <div className={styles.iconWrapper}>
-            <img src={user} className={styles.icon} alt={TRANSLATION.LOGO} />
-          </div>
-          <input
-            className={styles.input}
-            required={true}
-            value={name}
-            placeholder={'Imię'}
-            type={'text'}
-            onChange={handleChange('name')}
-          />
-        </div>
-        <div className={styles.formInput}>
-          <div className={styles.iconWrapper}>
-            <img src={mail} className={styles.icon} alt={TRANSLATION.LOGO} />
-          </div>
-          <input
-            className={styles.input}
-            value={email}
-            required={true}
-            placeholder={'Adres mailowy'}
-            type={'email'}
-            onChange={handleChange('email')}
-          />
-        </div>
-        <div className={styles.formInput}>
-          <div className={styles.iconWrapper}>
-            <img src={unlock} className={styles.icon} alt={TRANSLATION.LOGO} />
-          </div>
-          <input
-            className={clsx(styles.input, styles.passwordInput)}
-            value={password}
-            required={true}
-            placeholder={'Hasło'}
-            type={passwordShown ? 'text' : 'password'}
-            onChange={handleChange('password')}
-          />
-          <div
-            onClick={togglePassword}
-            className={clsx(styles.iconWrapper, styles.iconWrapperRight)}
-          >
-            <img
-              src={passwordShown ? hidePass : showPass}
-              className={styles.icon}
-              alt={TRANSLATION.LOGO}
-            />
-          </div>
-        </div>
-        <div className={styles.button}>
-          <BgColorButton
-            title={props.buttonName}
-            form={true}
-            onClick={handleClick}
-          />
-        </div>
-        <div className={styles.info}>
-          <p className={styles.noAccountInfo}>
-            Posiadasz już konto?{' '}
-            <Link to={PATH.LOGIN} className={styles.link}>
-              Zaloguj się
-            </Link>
-          </p>
-          <p>
-            <Link to={PATH.MAIN} className={styles.link}>
-              Wróć na stronę główną
-            </Link>
-          </p>
-        </div>
+        <Header title={TRANSLATION.register} />
+        <Input
+          type={'name'}
+          iconSrc={userIcon}
+          value={name}
+          placeholder={PLACEHOLDER.name}
+          handleChange={handleChange('name')}
+          submitClicked={missingSubmitFields.name}
+        />
+        <Input
+          type={'email'}
+          iconSrc={emailIcon}
+          value={email}
+          placeholder={PLACEHOLDER.email}
+          handleChange={handleChange('email')}
+          submitClicked={missingSubmitFields.email}
+        />
+        <Input
+          type={'password'}
+          iconSrc={unlockIcon}
+          value={password}
+          placeholder={PLACEHOLDER.password}
+          handleChange={handleChange('password')}
+          submitClicked={missingSubmitFields.password}
+          isRegistration={true}
+        />
+        <ColorButton
+          title={props.buttonName}
+          form={true}
+          onClick={handleClick}
+        />
+        <HasAccount noAccout={false} link={PATH.login} />
         {SUCCESS_MESSAGE.hasOwnProperty(message) && (
           <div className={styles.message}>
             {SUCCESS_MESSAGE[message]}
             <br></br>
-            Możesz teraz{' '}
-            <Link to={PATH.LOGIN} className={styles.link}>
-              zalogować się
-            </Link>{' '}
-            przy użyciu wybranego e-maila lub{' '}
-            <Link to={PATH.MAIN} className={styles.link}>
-              wrócić na stronę główną
+            <Link to={PATH.login} className={styles.link}>
+              {TRANSLATION.login}
+            </Link>
+            {' lub '}
+            <Link to={PATH.main} className={styles.link}>
+              {TRANSLATION.backMainPage}
             </Link>
             <img
-              src={x}
+              src={cancelIcon}
               className={styles.icon}
-              alt={'x'}
+              alt={TRANSLATION.cancel}
               onClick={() => setMessage('')}
             />
           </div>
         )}
-        {ERROR_MESSAGE.hasOwnProperty(message) && (
-          <div className={styles.errorMessage}>
-            <div className={styles.text}>{ERROR_MESSAGE[message]}</div>
-            <img
-              src={x}
-              className={styles.icon}
-              alt={'x'}
-              onClick={() => setMessage('')}
-            />
-          </div>
-        )}
+        <ErrorMessage message={message} />
       </div>
     </div>
   );

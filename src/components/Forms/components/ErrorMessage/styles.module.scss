@@ -1,0 +1,23 @@
+@import '../../../../styles/colors.scss';
+
+.wrapper {
+  position: absolute;
+  top: 8.5rem;
+  left: 50%;
+  transform: translate(-50%, 0);
+  white-space: nowrap;
+}
+
+.errorIcon {
+  width: 20px;
+  height: 20px;
+}
+
+.errorMessage {
+  display: inline;
+  position: relative;
+  left: 6px;
+  bottom: 3px;
+  color: $dark-red;
+  font-weight: 600;
+}

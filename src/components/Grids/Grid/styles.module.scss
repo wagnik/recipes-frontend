@@ -12,25 +12,6 @@
   }
 }
 
-.link {
-  width: fit-content;
-  font-size: 18px;
-  color: black;
-  margin-bottom: 2rem;
-  letter-spacing: -0.04em;
-  line-height: 1.25;
-  font-family: 'DM Sans', sans-serif;
-  font-weight: 700;
-}
-
-.link:hover {
-  color: $dark-red;
-}
-
-.link:active {
-  color: black;
-}
-
 .recipes {
   margin-top: 2rem;
   display: grid;
@@ -49,8 +30,8 @@
 .image {
   width: 100%;
   height: 250px;
-  object-fit: none;
-  background-color: rgba(39, 40, 42, 0.3);
+  object-fit: cover;
+  background-color: $light-gray;
 }
 
 .content {

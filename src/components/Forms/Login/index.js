@@ -1,20 +1,18 @@
 import React, { useState } from 'react';
-import clsx from 'clsx';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { loginUser } from '../../../services/userService';
-import { BgColorButton } from '../../Buttons';
+import { ErrorMessage, HasAccount, Header, Input } from '../components';
+import { ColorButton } from '../../Buttons';
 import {
   PATH,
   TRANSLATION,
   SUCCESS_MESSAGE,
-  ERROR_MESSAGE,
-} from '../../../constants';
-import mail from '../../../statics/icons/mail.svg';
-import unlock from '../../../statics/icons/unlock.svg';
-import showPass from '../../../statics/icons/showPass.svg';
-import hidePass from '../../../statics/icons/hidePass.svg';
-import x from '../../../statics/icons/x.svg';
+  PLACEHOLDER,
+} from '../../constants';
+
 import styles from './login.module.scss';
+import emailIcon from '../../../statics/icons/email.svg';
+import unlockIcon from '../../../statics/icons/unlock.svg';
 
 function Login(props) {
   const navigate = useNavigate();
@@ -23,7 +21,10 @@ function Login(props) {
     email: '',
     password: '',
   });
-  const [displayedPassword, setDisplayedPassword] = useState(false);
+  const [missingSubmitFields, setMissingSubmitFields] = useState({
+    email: false,
+    password: false,
+  });
   const [message, setMessage] = useState('');
 
   const { email, password } = values;
@@ -35,11 +36,15 @@ function Login(props) {
     });
   };
 
-  const togglePassword = () => {
-    setDisplayedPassword(!displayedPassword);
-  };
+  const handleClick = async (e) => {
+    if (!email || !password) {
+      return setMissingSubmitFields({
+        ...values,
+        email: !email && true,
+        password: !password && true,
+      });
+    }
 
-  const handleClick = async () => {
     const result = await loginUser(email, password);
 
     setMessage(result.message);
@@ -47,78 +52,36 @@ function Login(props) {
 
     if (SUCCESS_MESSAGE.hasOwnProperty(result.message)) {
       props.setRefreshAuth((old) => old + 1);
-      navigate(PATH.MAIN);
+      navigate(-1);
     }
   };
 
   return (
     <div className={styles.wrapper}>
-      <div className={styles.heading}>{TRANSLATION.LOGIN}</div>
-      <div className={styles.formInput}>
-        <div className={styles.iconWrapper}>
-          <img src={mail} className={styles.icon} alt={TRANSLATION.LOGO} />
-        </div>
-        <input
-          className={styles.input}
-          value={email}
-          placeholder={'Adres mailowy'}
-          type={'email'}
-          onChange={handleChange('email')}
-        />
-      </div>
-      <div className={styles.formInput}>
-        <div className={styles.iconWrapper}>
-          <img src={unlock} className={styles.icon} alt={TRANSLATION.LOGO} />
-        </div>
-        <input
-          className={clsx(styles.input, styles.passwordInput)}
-          value={password}
-          placeholder={'Hasło'}
-          type={displayedPassword ? 'text' : 'password'}
-          onChange={handleChange('password')}
-        />
-        <div
-          onClick={togglePassword}
-          className={clsx(styles.iconWrapper, styles.iconWrapperRight)}
-        >
-          <img
-            src={displayedPassword ? hidePass : showPass}
-            className={styles.icon}
-            alt={TRANSLATION.LOGO}
-          />
-        </div>
-      </div>
-      <div className={styles.button}>
-        <BgColorButton
-          title={props.buttonName}
-          form={true}
-          onClick={handleClick}
-        />
-      </div>
-      <div className={styles.info}>
-        <p className={styles.noAccountInfo}>
-          Nie posiadasz konta?{' '}
-          <Link to={PATH.REGISTRATION} className={styles.link}>
-            Zarejestruj się
-          </Link>
-        </p>
-        <p>
-          <Link to={PATH.MAIN} className={styles.link}>
-            Wróć na stronę główną
-          </Link>
-        </p>
-      </div>
-      {ERROR_MESSAGE.hasOwnProperty(message) && (
-        <div className={styles.errorMessage}>
-          <div className={styles.text}>{ERROR_MESSAGE[message]}</div>
-          <img
-            src={x}
-            className={styles.icon}
-            alt={'x'}
-            onClick={() => setMessage('')}
-          />
-        </div>
-      )}
+      <Header title={TRANSLATION.login} />
+      <Input
+        type={'email'}
+        iconSrc={emailIcon}
+        value={email}
+        placeholder={PLACEHOLDER.email}
+        handleChange={handleChange('email')}
+        submitClicked={missingSubmitFields.email}
+      />
+      <Input
+        type={'password'}
+        iconSrc={unlockIcon}
+        value={password}
+        placeholder={PLACEHOLDER.password}
+        handleChange={handleChange('password')}
+        submitClicked={missingSubmitFields.password}
+      />
+      <ColorButton
+        title={props.buttonName}
+        form={true}
+        onClick={(e) => handleClick(e)}
+      />
+      <HasAccount noAccount={true} link={PATH.register} />
+      <ErrorMessage message={message} />
     </div>
   );
 }

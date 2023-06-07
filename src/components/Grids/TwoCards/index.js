@@ -1,9 +1,9 @@
 import React from 'react';
-import clsx from 'clsx';
 import { Link } from 'react-router-dom';
-import { PATH } from '../../../constants';
-import styles from './styles.module.scss';
+import { PATH } from '../../constants';
 import PlaceholderCard from '../PlaceholderCard';
+
+import styles from './styles.module.scss';
 
 function TwoCards(props) {
   const filteredRecipes =
@@ -13,15 +13,14 @@ function TwoCards(props) {
       ? props.recipes.filter((r) => r.type.includes(props.type))
       : props.recipes);
 
-  const latestRecipes =
-    filteredRecipes && filteredRecipes.reverse().slice(0, 2); // zmienić na slice(-2) jak naprawię obrazki
+  const latestRecipes = filteredRecipes && filteredRecipes.slice(-2).reverse();
 
   return (
     <div className={styles.wrapper}>
       {latestRecipes && latestRecipes.length > 0 ? (
         latestRecipes.map((recipe, index) => {
           return (
-            <Link key={index} to={`${PATH.RECIPE}${recipe._id}`}>
+            <Link key={index} to={`${PATH.recipe}${recipe._id}`}>
               <div className={styles.card}>
                 <img
                   src={recipe.img}

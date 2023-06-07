@@ -1,24 +1,27 @@
 import { NavLink } from 'react-router-dom';
-import { PATH, TRANSLATION } from '../../constants';
-import logo from './../../logo.svg';
+import { PATH, TRANSLATION } from '../constants';
 import config from '../../config.json';
+
 import styles from './styles.module.scss';
+import logo from './../../logo.svg';
 
-const appTitle = config.appTitle;
-
-function Footer() {
+function Footer(props) {
   return (
-    <div className={styles.wrapper}>
-      <NavLink to={PATH.MAIN}>
-        <div className={styles.logo}>
-          <img src={logo} className={styles.logoImage} alt={TRANSLATION.LOGO} />
-          <div className={styles.logoTitle}>{appTitle}</div>
-        </div>
-      </NavLink>
-      <div className={styles.copyright}>
-        Copyright © 2023, domoweprzepisy.pl
+    !props.showModal && (
+      <div className={styles.wrapper}>
+        <NavLink to={PATH.main}>
+          <div className={styles.logo}>
+            <img
+              src={logo}
+              className={styles.logoImage}
+              alt={TRANSLATION.logo}
+            />
+            <div className={styles.logoTitle}>{config.appTitle}</div>
+          </div>
+        </NavLink>
+        <div className={styles.copyright}>{TRANSLATION.footerCopyright}</div>
       </div>
-    </div>
+    )
   );
 }
 

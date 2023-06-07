@@ -1,7 +1,8 @@
 import React from 'react';
 import clsx from 'clsx';
-import rightArrow from '../../../statics/icons/rightArrow.svg';
+
 import styles from './styles.module.scss';
+import rightArrowIcon from '../../../statics/icons/rightArrow.svg';
 
 function PlaceholderCard(props) {
   return (
@@ -17,7 +18,7 @@ function PlaceholderCard(props) {
           &nbsp;
         </div>
         {props.size === 'grid' && (
-          <img className={styles.icon} src={rightArrow} alt={'arrow'} />
+          <img className={styles.icon} src={rightArrowIcon} alt={'arrow'} />
         )}
         {props.size !== 'grid' && (
           <div className={styles.descriptionPlaceholder}></div>

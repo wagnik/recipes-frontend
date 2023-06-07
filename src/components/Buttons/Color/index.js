@@ -1,7 +1,7 @@
 import styles from './styles.module.scss';
 import clsx from 'clsx';
 
-function BgColorButton(props) {
+function ColorButton(props) {
   return (
     <button
       onClick={props.onClick && props.onClick}
@@ -16,4 +16,4 @@ function BgColorButton(props) {
   );
 }
 
-export default BgColorButton;
+export default ColorButton;

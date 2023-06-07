@@ -13,7 +13,7 @@ import {
 import Footer from './components/Footer';
 import { fetchAllRecipes } from './services/recipeService';
 import { fetchAuthUser } from './services/userService';
-import { PATH, TRANSLATION } from './constants';
+import { PATH, TRANSLATION } from './components/constants';
 import styles from './App.module.scss';
 
 export const UserContext = createContext({});
@@ -27,6 +27,7 @@ function App() {
   const [refreshKey, setRefreshKey] = useState(0);
   const [refreshAuth, setRefreshAuth] = useState(0);
   const [userSession, setUserSession] = useState(true);
+  const [showModal, setShowModal] = React.useState(false);
 
   useEffect(() => {
     const fetchRecipes = async () => {
@@ -53,7 +54,7 @@ function App() {
       <div className={styles.wrapper}>
         <Routes location={previousLocation || location}>
           <Route
-            path={PATH.MAIN}
+            path={PATH.main}
             element={
               <>
                 <Navigation
@@ -69,27 +70,25 @@ function App() {
             }
           ></Route>
           <Route
-            path={PATH.ADD_RECIPE}
+            path={PATH.addRecipe}
             element={
               <RecipeForm
                 setRefreshKey={setRefreshKey}
-                buttonName={TRANSLATION.ADD_RECIPE}
+                buttonName={TRANSLATION.addRecipe}
               />
             }
           ></Route>
           {!userSession.email && (
             <>
               <Route
-                path={PATH.REGISTRATION}
-                element={
-                  <Registration buttonName={TRANSLATION.SUBMIT_REGISTER} />
-                }
+                path={PATH.register}
+                element={<Registration buttonName={TRANSLATION.register} />}
               ></Route>
               <Route
-                path={PATH.LOGIN}
+                path={PATH.login}
                 element={
                   <Login
-                    buttonName={TRANSLATION.SUBMIT_LOGIN}
+                    buttonName={TRANSLATION.login}
                     setUserSession={setUserSession}
                     setRefreshAuth={setRefreshAuth}
                     setMessage={setMessage}
@@ -99,7 +98,7 @@ function App() {
             </>
           )}
           <Route
-            path={`${PATH.RECIPE}:id`}
+            path={`${PATH.recipe}:id`}
             element={
               <>
                 {/* <Search /> */}
@@ -110,13 +109,18 @@ function App() {
                   message={message}
                   setMessage={setMessage}
                 />
-                <Recipe setRefreshKey={setRefreshKey} refreshKey={refreshKey} />
-                <Footer />
+                <Recipe
+                  setRefreshKey={setRefreshKey}
+                  refreshKey={refreshKey}
+                  setShowModal={setShowModal}
+                  showModal={showModal}
+                />
+                <Footer showModal={showModal} />
               </>
             }
           ></Route>
           <Route
-            path={PATH.ALL_RECIPES}
+            path={PATH.allRecipes}
             element={
               <>
                 {/* <Search /> */}
@@ -137,7 +141,7 @@ function App() {
             }
           ></Route>
           <Route
-            path={`${PATH.TYPE_RECIPES}:type`}
+            path={`${PATH.typeRecipes}:type`}
             element={
               <>
                 {/* <Search /> */}
@@ -159,19 +163,21 @@ function App() {
           ></Route>
         </Routes>
 
-        {previousLocation && (
-          <Routes>
-            <Route
-              path={`${PATH.EDIT}:id`}
-              element={
-                <Edit
-                  setRefreshKey={setRefreshKey}
-                  buttonName={TRANSLATION.SAVE}
-                />
-              }
-            ></Route>
-          </Routes>
-        )}
+        {/* {previousLocation && ( */}
+        <Routes>
+          <Route
+            path={`${PATH.edit}:id`}
+            element={
+              <Edit
+                setRefreshKey={setRefreshKey}
+                buttonName={TRANSLATION.save}
+                setShowModal={setShowModal}
+                showModal={showModal}
+              />
+            }
+          ></Route>
+        </Routes>
+        {/* )} */}
       </div>
     </UserContext.Provider>
   );

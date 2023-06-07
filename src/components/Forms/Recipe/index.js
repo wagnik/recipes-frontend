@@ -1,24 +1,38 @@
 import React, { useState, useContext } from 'react';
-import { Link, useNavigate, useParams } from 'react-router-dom';
-import FileBase64 from 'react-file-base64';
+import clsx from 'clsx';
+import { useNavigate, useParams } from 'react-router-dom';
+import Select from 'react-select';
 import { UserContext } from '../../../App';
 import { addRecipe, editRecipe } from '../../../services/recipeService';
 import {
-  TransparrentButton,
-  BgColorButton,
-  FileButton,
-  BackToButton,
-} from '../../Buttons';
-import { PATH } from '../../../constants';
-import styles from './styles.module.scss';
-import Image from '../../Recipe/Image';
+  FORM_TITLES,
+  PATH,
+  PLACEHOLDER,
+  TRANSLATION,
+  TYPE_OPTIONS,
+  WARNING_MESSAGE,
+} from '../../constants';
+
 import Title from '../../Recipe/Title';
+import Image from '../../Recipe/Image';
 import Description from '../../Recipe/Description';
+import {
+  TransparrentButton,
+  ColorButton,
+  FileButton,
+  BackButton,
+} from '../../Buttons';
+import { Header } from '../components';
+
+import styles from './styles.module.scss';
 
 function Recipe(props) {
-  const navigate = useNavigate();
   const { id } = useParams();
+  const navigate = useNavigate();
   const userContext = useContext(UserContext);
+
+  const [inputClicked, setInputClicked] = useState(false);
+  const [selectClicked, setSelectClicked] = useState(false);
 
   const [values, setValues] = useState({
     title: '',
@@ -34,6 +48,10 @@ function Recipe(props) {
         }
       : {},
   });
+  const [missingSubmitFields, setMissingSubmitFields] = useState({
+    title: false,
+    type: false,
+  });
 
   const {
     title,
@@ -47,9 +65,66 @@ function Recipe(props) {
 
   const handleImageFile = (base64) => setValues({ ...values, image: base64 });
 
-  const handleChange = (fieldName) => (event, base64) => {
-    const currentValue = event.target.value;
+  const validateField = (submitClicked, inputClicked, condition) =>
+    submitClicked || inputClicked
+      ? condition && WARNING_MESSAGE.missingField
+      : null;
 
+  const areTypesChosen = validateField(
+    missingSubmitFields.type,
+    selectClicked,
+    type.length === 0
+  );
+  const isTitleFilled = validateField(
+    missingSubmitFields.title,
+    inputClicked,
+    title === ''
+  );
+
+  const selectStyling = {
+    control: (baseStyles) => ({
+      ...baseStyles,
+      fontSize: '1.125rem',
+      fontWeight: '300',
+      fontFamily: 'DM Sans, sans-serif',
+      lineHeight: '1.2',
+      border: areTypesChosen ? '2px solid #b33737' : '1px solid #b2afb0',
+      boxShadow: 'none',
+      '&:hover': {
+        cursor: 'pointer',
+        border: areTypesChosen ? '2px solid #b33737' : '1px solid #b2afb0',
+      },
+    }),
+    option: (baseStyles, state) => ({
+      ...baseStyles,
+      cursor: 'pointer',
+      fontSize: '1rem',
+      fontWeight: '300',
+      fontFamily: 'DM Sans, sans-serif',
+      lineHeight: '1.2',
+      backgroundColor: state.isFocused ? '#c48787' : 'white',
+      outline: 'none',
+      '&:active': {
+        backgroundColor: '#b33737',
+      },
+    }),
+    noOptionsMessage: (baseStyles) => ({
+      ...baseStyles,
+      fontSize: '1.125rem',
+      fontWeight: '300',
+      fontFamily: 'DM Sans, sans-serif',
+      lineHeight: '1.2',
+    }),
+    multiValueRemove: (styles) => ({
+      ...styles,
+      ':hover': {
+        backgroundColor: '#c48787',
+        color: 'white',
+      },
+    }),
+  };
+
+  const handleChange = (fieldName) => (event, base64) => {
     if (fieldName === 'ingredients') {
       const ingredients = event.target.value.split('\n');
 
@@ -63,7 +138,7 @@ function Recipe(props) {
     if (fieldName === 'type') {
       setValues({
         ...values,
-        [fieldName]: currentValue === '' ? [] : currentValue.split(','),
+        [fieldName]: event,
       });
       return;
     }
@@ -75,6 +150,14 @@ function Recipe(props) {
   };
 
   const handleClick = async () => {
+    if (!title || type.length === 0) {
+      return setMissingSubmitFields({
+        ...values,
+        title: !title && true,
+        type: type.length === 0 && true,
+      });
+    }
+
     if (id) {
       await editRecipe(
         id,
@@ -83,9 +166,9 @@ function Recipe(props) {
         image.base64,
         ingredients,
         showIngredients,
-        type
+        type.map((t) => t.value)
       ).then(() => props.setRefreshKey((oldKey) => oldKey + 1));
-      navigate(PATH.MAIN);
+      navigate(PATH.main);
       return;
     }
 
@@ -94,35 +177,37 @@ function Recipe(props) {
       description,
       image.base64,
       ingredients,
-      type,
+      type.map((t) => t.value),
       author
     ).then(() => props.setRefreshKey((oldKey) => oldKey + 1));
-    navigate(PATH.MAIN);
+    navigate(PATH.main);
   };
 
   return (
     <div className={styles.wrapper}>
       <div className={styles.form}>
-        <BackToButton />
-        <div className={styles.heading}>Dodaj przepis</div>
-        <div className={styles.paragraph}>
-          Podaj wszystkie potrzebne składniki, instrukcję krok po kroku oraz
-          wrzuć zdjęcia, jeżeli takie posiadasz. Na pewno zachęci to innych do
-          wypróbowania Twoich przepisów
-        </div>
+        <BackButton />
+        <Header title={FORM_TITLES.addRecipe} />
         <div className={styles.inputs}>
           <div>
-            <h5>Tytuł</h5>
+            <h5>{FORM_TITLES.title}</h5>
             <input
-              className={styles.placeholder}
+              className={clsx(
+                styles.placeholder,
+                isTitleFilled && styles.warningInput
+              )}
               value={title}
-              placeholder='Przykładowy tytuł'
+              placeholder={PLACEHOLDER.exampleTitle}
               onChange={handleChange('title')}
+              onFocus={() => setInputClicked(true)}
             />
+            {isTitleFilled && (
+              <div className={styles.warningMessage}>{isTitleFilled}</div>
+            )}
           </div>
           <div>
             <div className={styles.checkbox}>
-              <h5>Składniki</h5>
+              <h5>{FORM_TITLES.ingredients}</h5>
               <input
                 type='checkbox'
                 value={showIngredients}
@@ -141,60 +226,71 @@ function Recipe(props) {
                 className={styles.placeholder}
                 placeholder={
                   !showIngredients
-                    ? "Dodawaj kolejne składniki po kliknięciu 'Enter'"
-                    : 'Kliknij checkbox by dodać składniki'
+                    ? PLACEHOLDER.addIngredients
+                    : PLACEHOLDER.noIngredients
                 }
                 onChange={handleChange('ingredients')}
               />
             }
           </div>
           <div>
-            <h5>Przygotowanie</h5>
+            <h5>{FORM_TITLES.description}</h5>
             <textarea
               className={styles.placeholder}
               value={description}
               rows={8}
-              placeholder='Dodaj instrukcję krok po kroku'
+              placeholder={PLACEHOLDER.addDescription}
               onChange={handleChange('description')}
             />
           </div>
           <div>
-            <h5>Zdjęcie</h5>
+            <h5>{FORM_TITLES.image}</h5>
             <FileButton onDone={handleImageFile} />
           </div>
-          <div className={styles.select}>
-            <h5>Rodzaj</h5>
-            <select onChange={handleChange('type')} value={type} multiple>
-              <option value='Śniadanie'>Śniadanie</option>
-              <option value='Obiad'>Obiad</option>
-              <option value='Deser'>Deser</option>
-            </select>
+          <div className={styles.select2}>
+            <h5>{FORM_TITLES.category}</h5>
+            <Select
+              styles={selectStyling}
+              options={TYPE_OPTIONS}
+              value={type}
+              isMulti
+              onChange={handleChange('type')}
+              onFocus={() => setSelectClicked(true)}
+              placeholder={PLACEHOLDER.addCategories}
+              noOptionsMessage={({ inputValue }) =>
+                !inputValue && PLACEHOLDER.noMoreCategories
+              }
+            />
+            {areTypesChosen && (
+              <div className={styles.warningMessage2}>{areTypesChosen}</div>
+            )}
           </div>
         </div>
         <div className={styles.button}>
           <TransparrentButton
-            title={'Anuluj'}
-            onClick={() => navigate(PATH.MAIN)}
+            title={TRANSLATION.cancel}
+            onClick={() => navigate(PATH.main)}
           />
-          <BgColorButton title={props.buttonName} onClick={handleClick} />
+          <ColorButton title={props.buttonName} onClick={handleClick} />
         </div>
       </div>
       <div className={styles.preview}>
-        <div className={styles.image}>
-          {image && (
+        <div className={styles.previewContent}>
+          <Title title={title || PLACEHOLDER.exampleTitle} />
+          <div className={styles.dash} />
+          {image ? (
             <Image
               src={URL.createObjectURL(image.file)}
               title={title}
               preview={true}
             />
+          ) : (
+            <div className={styles.image} />
           )}
-        </div>
-        <div className={styles.previewContent}>
-          <Title title={title || 'Przykładowy tytuł'} />
           <Description
             showIngredients={!showIngredients}
             previewIngredients={ingredients}
-            description={description || 'Dodaj instrukcję krok po kroku'}
+            description={description || PLACEHOLDER.addDescription}
           />
         </div>
       </div>

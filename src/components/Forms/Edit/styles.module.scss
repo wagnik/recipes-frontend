@@ -4,7 +4,6 @@
   position: fixed;
   left: 0;
   top: 0;
-  bottom: 0;
   width: 100%;
   height: calc(100% - 120px);
   padding: 60px 0;
@@ -16,15 +15,17 @@
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif, 'Caveat';
+  cursor: pointer;
 }
 
 .modal {
+  cursor: auto;
   width: 100%;
   height: 100%;
   max-width: 60%;
   position: relative;
   border-radius: 10px;
-  padding: 0 0 300px;
+  padding: 0 0 350px;
   background-color: $white;
   box-shadow: 2px 4px 20px 0px rgba(0, 0, 0, 0.75);
 }
@@ -50,7 +51,7 @@
 }
 
 .content {
-  margin: 0 50px;
+  margin: 2rem 50px;
   text-align: left;
 }
 
@@ -99,13 +100,21 @@
 
 .editField {
   box-sizing: border-box;
-  width: 100%;
+  min-width: 50%;
   cursor: text;
   border: none;
   outline: none;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif, 'Caveat';
+}
+
+.fullArea {
+  width: 100%;
+}
+
+.fullTitle {
+  margin-top: 3rem;
 }
 
 .editField:hover {
@@ -174,6 +183,7 @@
   white-space: pre-wrap;
   background-color: $light-gray;
   border-radius: 5px;
+  margin-bottom: 1rem;
 }
 
 .disabled {

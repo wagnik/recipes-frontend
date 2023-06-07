@@ -1,19 +1,17 @@
-import React, { useEffect, useRef } from 'react';
-import { EditText, EditTextarea } from 'react-edit-text';
-import { useParams, useNavigate } from 'react-router-dom';
+import React, { useEffect } from 'react';
 import clsx from 'clsx';
-import FileBase64 from 'react-file-base64';
-import { BgColorButton, FileButton, TransparrentButton } from '../../Buttons';
-import { editRecipe, fetchRecipe } from '../../../services/recipeService';
-import { TRANSLATION } from '../../../constants';
-import removeIcon from '../../../statics/images/remove-icon.svg';
-import styles from './styles.module.scss';
+import { EditText, EditTextarea } from 'react-edit-text';
+import { useParams } from 'react-router-dom';
+
 import Image from '../../Recipe/Image';
+import { editRecipe, fetchRecipe } from '../../../services/recipeService';
+import { ColorButton, FileButton, TransparrentButton } from '../../Buttons';
+import { FORM_TITLES, PLACEHOLDER, TRANSLATION } from '../../constants';
+
+import styles from './styles.module.scss';
 
 function Edit(props) {
   const { id } = useParams();
-  const modalRef = useRef();
-  const navigate = useNavigate();
 
   const [recipe, getRecipe] = React.useState({
     title: '',
@@ -33,15 +31,12 @@ function Edit(props) {
   const { title, description, image, ingredients, type, showIngredients } =
     values;
 
+  const { addTitle, addIngredients, noIngredients, addDescription } =
+    PLACEHOLDER;
+
   const handleImageFile = (base64) => setValues({ ...values, image: base64 });
 
   const handleChange = (fieldName) => (event, base64) => {
-    // if (fieldName === 'image') {
-    //   setValues({
-    //     ...values,
-    //     [fieldName]: event.target.value,
-    //   });
-    // }
     if (fieldName === 'ingredients') {
       const ingredients = event.target.value.split('\n');
 
@@ -64,6 +59,8 @@ function Edit(props) {
         getRecipe(data);
         setValues({
           ...values,
+          title: data.title,
+          description: data.description,
           showIngredients: data.ingredients && data.ingredients.length > 0,
         });
       });
@@ -83,35 +80,46 @@ function Edit(props) {
         showIngredients,
         type
       ).then(() => props.setRefreshKey((oldKey) => oldKey + 1));
-      navigate(-1);
+      props.setShowModal(false);
       return;
     }
   };
 
-  return (
-    <div ref={modalRef} className={styles.wrapper}>
-      <div className={styles.modal}>
+  return props.showModal ? (
+    <div
+      className={styles.wrapper}
+      onClick={(e) => {
+        props.setShowModal(false);
+        e.stopPropagation();
+      }}
+    >
+      <div className={styles.modal} onClick={(e) => e.stopPropagation()}>
         <div className={styles.recipeWrapper}>
-          <Image
-            src={
-              image.file ? URL.createObjectURL(image.file || image) : recipe.img
-            }
-            title={recipe.title}
-            preview={true}
-          />
           <div className={styles.content}>
-            <FileButton onDone={handleImageFile} />
             <EditText
               className={styles.recipeTitle}
               inputClassName={clsx(styles.recipeTitle, styles.editField)}
-              value={title || recipe.title}
+              placeholder={addTitle}
+              value={title}
               onChange={handleChange('title')}
             />
             <div className={styles.dash} />
+            <Image
+              src={
+                image.file
+                  ? URL.createObjectURL(image.file || image)
+                  : recipe.img
+              }
+              title={recipe.title}
+              edit={true}
+            />
             <div className={styles.description}>
               <>
                 <div className={styles.checkbox}>
-                  <p className={styles.descriptionTitle}>Składniki</p>
+                  <FileButton onDone={handleImageFile} />
+                  <p className={styles.descriptionTitle}>
+                    {FORM_TITLES.ingredients}
+                  </p>
                   <input
                     type='checkbox'
                     value={showIngredients}
@@ -125,7 +133,7 @@ function Edit(props) {
                   ></input>
                 </div>
                 <EditTextarea
-                  rows={4}
+                  rows={8}
                   readonly={!showIngredients}
                   inputClassName={clsx(
                     styles.descriptionArea,
@@ -138,11 +146,7 @@ function Edit(props) {
                     styles.ingredientsArea,
                     !showIngredients && styles.disabled
                   )}
-                  placeholder={
-                    showIngredients
-                      ? "Dodawaj kolejne składniki po kliknięciu 'Enter'"
-                      : 'Zaznacz checkbox jeśli chcesz wyświetlać składniki, inaczej zostaną usunięte'
-                  }
+                  placeholder={showIngredients ? addIngredients : noIngredients}
                   value={
                     showIngredients
                       ? ingredients.join('\n') || recipe.ingredients.join('\n')
@@ -151,12 +155,19 @@ function Edit(props) {
                   onChange={handleChange('ingredients')}
                 />
               </>
-              <p className={styles.descriptionTitle}>Przygotowanie</p>
+              <p className={clsx(styles.descriptionTitle, styles.fullTitle)}>
+                {FORM_TITLES.description}
+              </p>
               <EditTextarea
                 className={styles.descriptionArea}
-                inputClassName={clsx(styles.editField, styles.descriptionArea)}
+                inputClassName={clsx(
+                  styles.editField,
+                  styles.descriptionArea,
+                  styles.fullArea
+                )}
                 rows={8}
-                value={description || recipe.description}
+                placeholder={addDescription}
+                value={description}
                 onChange={handleChange('description')}
               />
             </div>
@@ -164,17 +175,17 @@ function Edit(props) {
         </div>
         <div className={styles.saveArea}>
           <TransparrentButton
-            title={'Anuluj'}
-            onClick={() => navigate(-1)}
+            title={TRANSLATION.cancel}
+            onClick={() => props.setShowModal(false)}
           ></TransparrentButton>
-          <BgColorButton
-            title={TRANSLATION.SAVE}
+          <ColorButton
+            title={TRANSLATION.save}
             onClick={handleClick}
-          ></BgColorButton>
+          ></ColorButton>
         </div>
       </div>
     </div>
-  );
+  ) : null;
 }
 
 export default Edit;

@@ -1,5 +1,6 @@
 import React from 'react';
 import FileBase64 from 'react-file-base64';
+
 import styles from './styles.module.scss';
 
 function FileButton(props) {
@@ -16,8 +17,8 @@ function FileButton(props) {
         className={styles.removeIcon2}
         onClick={() => setValues({ ...values, image: recipe.img })}
         src={removeIcon}
-        alt={TRANSLATION.REMOVE}
-        title={TRANSLATION.REMOVE}
+        alt={TRANSLATION.remove}
+        title={TRANSLATION.remove}
       />
     </div> */}
     </div>
