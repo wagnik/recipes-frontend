@@ -1,13 +1,16 @@
 import React, { useContext } from 'react';
 import { NavLink } from 'react-router-dom';
+
 import { UserContext } from '../../App';
 import { logoutUser } from '../../services/userService';
+
 import { TransparrentButton, ColorButton } from '../Buttons';
+
 import { PATH, TRANSLATION } from '../constants';
 import config from '../../config.json';
 
 import styles from './styles.module.scss';
-import logo from './../../logo.svg';
+import logo from '../../statics/icons/logo.svg';
 
 function Navigation(props) {
   const userContext = useContext(UserContext);

@@ -36,7 +36,7 @@ function Login(props) {
     });
   };
 
-  const handleClick = async (e) => {
+  const handleClick = async () => {
     if (!email || !password) {
       return setMissingSubmitFields({
         ...values,
@@ -52,7 +52,7 @@ function Login(props) {
 
     if (SUCCESS_MESSAGE.hasOwnProperty(result.message)) {
       props.setRefreshAuth((old) => old + 1);
-      navigate(-1);
+      navigate(PATH.main);
     }
   };
 

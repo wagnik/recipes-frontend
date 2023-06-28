@@ -12,7 +12,6 @@ import styles from './styles.module.scss';
 
 function Edit(props) {
   const { id } = useParams();
-
   const [recipe, getRecipe] = React.useState({
     title: '',
     description: '',
@@ -34,8 +33,8 @@ function Edit(props) {
   const { addTitle, addIngredients, noIngredients, addDescription } =
     PLACEHOLDER;
 
-  const handleImageFile = (base64) => setValues({ ...values, image: base64 });
-
+  const handleImageFile = (e) =>
+    setValues({ ...values, image: e.target.files[0] });
   const handleChange = (fieldName) => (event, base64) => {
     if (fieldName === 'ingredients') {
       const ingredients = event.target.value.split('\n');
@@ -49,7 +48,7 @@ function Edit(props) {
 
     setValues({
       ...values,
-      [fieldName]: base64 ?? event.target.value,
+      [fieldName]: event.target.value,
     });
   };
 
@@ -70,12 +69,12 @@ function Edit(props) {
   }, [id]);
 
   const handleClick = async () => {
-    if (id || title || description || ingredients || showIngredients) {
+    if (id || title || description || image || ingredients || showIngredients) {
       await editRecipe(
         id,
         title,
         description,
-        image.base64,
+        image,
         ingredients,
         showIngredients,
         type
@@ -105,18 +104,14 @@ function Edit(props) {
             />
             <div className={styles.dash} />
             <Image
-              src={
-                image.file
-                  ? URL.createObjectURL(image.file || image)
-                  : recipe.img
-              }
+              src={image ? URL.createObjectURL(image) : recipe.img}
               title={recipe.title}
               edit={true}
             />
             <div className={styles.description}>
               <>
                 <div className={styles.checkbox}>
-                  <FileButton onDone={handleImageFile} />
+                  <FileButton onChange={handleImageFile} />
                   <p className={styles.descriptionTitle}>
                     {FORM_TITLES.ingredients}
                   </p>

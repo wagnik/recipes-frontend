@@ -3,7 +3,7 @@ import { PATH, TRANSLATION } from '../constants';
 import config from '../../config.json';
 
 import styles from './styles.module.scss';
-import logo from './../../logo.svg';
+import logo from '../../statics/icons/logo.svg';
 
 function Footer(props) {
   return (

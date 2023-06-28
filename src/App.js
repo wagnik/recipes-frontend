@@ -1,5 +1,9 @@
 import React, { useState, useEffect, createContext } from 'react';
 import { Route, Routes, useLocation } from 'react-router-dom';
+
+import { fetchAllRecipes } from './services/recipeService';
+import { fetchAuthUser } from './services/userService';
+
 import Navigation from './components/Navigation';
 import MainContent from './components/MainContent';
 import Recipe from './components/Recipe';
@@ -11,9 +15,9 @@ import {
   Registration,
 } from './components/Forms';
 import Footer from './components/Footer';
-import { fetchAllRecipes } from './services/recipeService';
-import { fetchAuthUser } from './services/userService';
+
 import { PATH, TRANSLATION } from './components/constants';
+
 import styles from './App.module.scss';
 
 export const UserContext = createContext({});
@@ -78,7 +82,7 @@ function App() {
               />
             }
           ></Route>
-          {!userSession.email && (
+          {!userSession.email ? (
             <>
               <Route
                 path={PATH.register}
@@ -96,6 +100,26 @@ function App() {
                 }
               ></Route>
             </>
+          ) : (
+            <Route
+              path={PATH.main}
+              element={
+                <>
+                  <Navigation
+                    setRefreshKey={setRefreshKey}
+                    setUserSession={setUserSession}
+                    setRefreshAuth={setRefreshAuth}
+                    message={message}
+                    setMessage={setMessage}
+                  />
+                  <MainContent
+                    recipes={recipes}
+                    setRefreshKey={setRefreshKey}
+                  />
+                  <Footer />
+                </>
+              }
+            />
           )}
           <Route
             path={`${PATH.recipe}:id`}
@@ -162,8 +186,6 @@ function App() {
             }
           ></Route>
         </Routes>
-
-        {/* {previousLocation && ( */}
         <Routes>
           <Route
             path={`${PATH.edit}:id`}
@@ -177,7 +199,6 @@ function App() {
             }
           ></Route>
         </Routes>
-        {/* )} */}
       </div>
     </UserContext.Provider>
   );

@@ -1,9 +1,11 @@
 import React, { useState, useContext } from 'react';
 import clsx from 'clsx';
-import { useNavigate, useParams } from 'react-router-dom';
 import Select from 'react-select';
+import { useNavigate } from 'react-router-dom';
+
 import { UserContext } from '../../../App';
-import { addRecipe, editRecipe } from '../../../services/recipeService';
+import { addRecipe } from '../../../services/recipeService';
+
 import {
   FORM_TITLES,
   PATH,
@@ -27,7 +29,6 @@ import { Header } from '../components';
 import styles from './styles.module.scss';
 
 function Recipe(props) {
-  const { id } = useParams();
   const navigate = useNavigate();
   const userContext = useContext(UserContext);
 
@@ -62,8 +63,6 @@ function Recipe(props) {
     type,
     author,
   } = values;
-
-  const handleImageFile = (base64) => setValues({ ...values, image: base64 });
 
   const validateField = (submitClicked, inputClicked, condition) =>
     submitClicked || inputClicked
@@ -124,7 +123,9 @@ function Recipe(props) {
     }),
   };
 
-  const handleChange = (fieldName) => (event, base64) => {
+  const handleImageFile = (e) =>
+    setValues({ ...values, image: e.target.files[0] });
+  const handleChange = (fieldName) => (event) => {
     if (fieldName === 'ingredients') {
       const ingredients = event.target.value.split('\n');
 
@@ -145,11 +146,13 @@ function Recipe(props) {
 
     setValues({
       ...values,
-      [fieldName]: base64 ?? event.target.value,
+      [fieldName]: event.target.value,
     });
   };
 
-  const handleClick = async () => {
+  const handleClick = async (event) => {
+    event.preventDefault();
+
     if (!title || type.length === 0) {
       return setMissingSubmitFields({
         ...values,
@@ -158,24 +161,10 @@ function Recipe(props) {
       });
     }
 
-    if (id) {
-      await editRecipe(
-        id,
-        title,
-        description,
-        image.base64,
-        ingredients,
-        showIngredients,
-        type.map((t) => t.value)
-      ).then(() => props.setRefreshKey((oldKey) => oldKey + 1));
-      navigate(PATH.main);
-      return;
-    }
-
     await addRecipe(
       title,
       description,
-      image.base64,
+      image,
       ingredients,
       type.map((t) => t.value),
       author
@@ -245,7 +234,7 @@ function Recipe(props) {
           </div>
           <div>
             <h5>{FORM_TITLES.image}</h5>
-            <FileButton onDone={handleImageFile} />
+            <FileButton onChange={handleImageFile} />
           </div>
           <div className={styles.select2}>
             <h5>{FORM_TITLES.category}</h5>
@@ -280,7 +269,7 @@ function Recipe(props) {
           <div className={styles.dash} />
           {image ? (
             <Image
-              src={URL.createObjectURL(image.file)}
+              src={URL.createObjectURL(image)}
               title={title}
               preview={true}
             />

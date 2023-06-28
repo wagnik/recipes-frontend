@@ -38,35 +38,40 @@ export const fetchRecipe = async (id) => {
 export const addRecipe = async (
   title,
   description,
-  img,
+  image,
   ingredients,
   type,
   author
 ) => {
-  const body = {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    credentials: 'include',
-    body: JSON.stringify({
-      title,
-      description,
-      img,
-      ingredients,
-      type,
-      author,
-    }),
-  };
+  const formData = new FormData();
+  formData.append('title', title);
+  formData.append('description', description);
+  formData.append('img', image);
+  ingredients.forEach((ingredient) => {
+    formData.append('ingredients', ingredient);
+  });
+  type.forEach((typeItem) => {
+    formData.append('type', typeItem);
+  });
+  console.log(author);
+  formData.append('author[id]', author.id);
+  formData.append('author[name]', author.name);
 
-  const response = await fetch(apiUrl, body);
+  const response = await fetch(apiUrl, {
+    method: 'POST',
+    credentials: 'include',
+    body: formData,
+    header: {
+      Accept: 'application/json',
+      'Content-Type': 'multipart/form-data',
+    },
+  });
 
   if (!response.ok) {
     throw new Error(`Error! status: ${response.status}`);
   }
 
   const result = await response.json();
-
   return result;
 };
 
@@ -76,22 +81,26 @@ export const editRecipe = async (
   description,
   img,
   ingredients,
-  showIngredients,
-  type
+  showIngredients
 ) => {
+  const formData = new FormData();
+  formData.append('id', id);
+  title && formData.append('title', title);
+  description && formData.append('description', description);
+  img && formData.append('img', img);
+  ingredients &&
+    ingredients.forEach((ingredient) => {
+      formData.append('ingredients', ingredient);
+    });
+  showIngredients && formData.append('showIngredients', showIngredients);
+
   const body = {
     method: 'PUT',
     headers: {
-      'Content-Type': 'application/json',
+      // 'Content-Type': 'multipart/form-data'
+      // 'Content-Type': 'application/json',
     },
-    body: JSON.stringify({
-      title,
-      description,
-      img,
-      ingredients,
-      showIngredients,
-      type,
-    }),
+    body: formData,
   };
 
   const response = await fetch(`${apiUrl}/${id}`, body);
